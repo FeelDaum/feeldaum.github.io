@@ -331,6 +331,9 @@ footer a:hover { color: var(--text); }
       <a class="dd-item" onclick="filterStock('koreanre'); return false;">
         코리안리 <span class="dd-code">003690</span>
       </a>
+      <a class="dd-item" onclick="filterStock('hyundaireotem'); return false;">
+        현대로템 <span class="dd-code">064350</span>
+      </a>
     </div>
   </div>
 </nav>
@@ -371,30 +374,21 @@ footer a:hover { color: var(--text); }
     </a>
   </div>
 
-  <!--
-  새 종목 추가 시 아래 형식으로 (data-stock은 고유 키):
-
-  <div class="stock-group" data-stock="samsung" id="samsung">
+  <div class="stock-group" data-stock="hyundaireotem" id="hyundaireotem">
     <div class="stock-header">
-      <h3>삼성전자</h3>
-      <span class="code">005930</span>
+      <h3>현대로템</h3>
+      <span class="code">064350</span>
       <span class="count">1건</span>
     </div>
-    <a href="./invest/others/samsung_20260601.html" class="article-row">
-      <span class="article-date">2026.06.01</span>
+    <a href="./invest/hyundaireotem/hyundaireotem_20260516.html" class="article-row">
+      <span class="article-date">2026.05.16</span>
       <div class="article-info">
-        <div class="article-title">분석 제목</div>
-        <div class="article-desc">간단 설명</div>
+        <div class="article-title">투자 분석 보고서</div>
+        <div class="article-desc">K-방산 핵심주 · 종합 투자 판단</div>
       </div>
       <span class="article-go">→</span>
     </a>
   </div>
-
-  종목 메뉴 드롭다운에 추가하려면 dropdown-panel 안에:
-  <a class="dd-item" onclick="filterStock('samsung'); return false;">
-    삼성전자 <span class="dd-code">005930</span>
-  </a>
-  -->
 
 </main>
 
@@ -405,7 +399,8 @@ footer a:hover { color: var(--text); }
 <script>
   const names = {
     'meritz': '메리츠금융지주',
-    'koreanre': '코리안리'
+    'koreanre': '코리안리',
+    'hyundaireotem': '현대로템'
   };
 
   function filterStock(key) {
