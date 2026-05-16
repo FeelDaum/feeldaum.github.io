@@ -15,7 +15,6 @@
   --light: #bbbbbb;
   --border: #e8e8e6;
   --hover: #f2f2f0;
-  --accent: #111111;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -107,9 +106,7 @@ nav {
 }
 
 /* DROPDOWN */
-.dropdown {
-  position: relative;
-}
+.dropdown { position: relative; }
 
 .nav-caret {
   margin-left: 6px;
@@ -143,15 +140,6 @@ nav {
   transform: rotate(180deg);
 }
 
-.dd-label {
-  padding: 10px 20px 6px;
-  font-size: 10px;
-  font-weight: 500;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--light);
-}
-
 .dd-item {
   display: flex;
   align-items: center;
@@ -162,6 +150,7 @@ nav {
   color: var(--sub);
   text-decoration: none;
   transition: all 0.12s;
+  cursor: pointer;
 }
 
 .dd-item:hover {
@@ -175,21 +164,12 @@ nav {
   color: var(--light);
 }
 
-.dd-sep {
-  height: 1px;
-  background: var(--border);
-  margin: 6px 16px;
-}
-
 /* ── MAIN ── */
 main {
   max-width: 780px;
   margin: 0 auto;
   padding: 56px 24px 140px;
 }
-
-/* SECTION */
-.section { margin-bottom: 52px; }
 
 .section-title {
   font-size: 11px;
@@ -208,6 +188,11 @@ main {
   overflow: hidden;
   border: 1px solid var(--border);
   background: var(--surface);
+  transition: opacity 0.2s;
+}
+
+.stock-group.hidden {
+  display: none;
 }
 
 .stock-header {
@@ -291,16 +276,6 @@ main {
   color: var(--text);
 }
 
-/* EMPTY */
-.empty-note {
-  text-align: center;
-  padding: 48px 24px;
-  color: var(--light);
-  font-size: 14px;
-  border: 1px dashed var(--border);
-  border-radius: 8px;
-}
-
 /* ── FOOTER ── */
 footer {
   text-align: center;
@@ -346,72 +321,113 @@ footer a:hover { color: var(--text); }
 </header>
 
 <nav>
-  <a href="#" class="nav-link active">전체</a>
+  <a href="#" class="nav-link active" onclick="filterStock('all'); return false;">전체</a>
   <div class="dropdown">
-    <button class="nav-link">종목 분석 <span class="nav-caret">▾</span></button>
+    <button class="nav-link">종목 메뉴 <span class="nav-caret">▾</span></button>
     <div class="dropdown-panel">
-      <div class="dd-label">집중 분석</div>
-      <a href="#meritz" class="dd-item">
+      <a class="dd-item" onclick="filterStock('meritz'); return false;">
         메리츠금융지주 <span class="dd-code">138040</span>
       </a>
-      <a href="#koreanre" class="dd-item">
+      <a class="dd-item" onclick="filterStock('korean-re'); return false;">
         코리안리 <span class="dd-code">003690</span>
       </a>
-      <div class="dd-sep"></div>
-      <div class="dd-label">개별 분석</div>
-      <span class="dd-item" style="color:var(--light);font-size:13px;cursor:default;">준비 중</span>
     </div>
   </div>
 </nav>
 
 <main>
 
-  <div class="section">
-    <p class="section-title">집중 분석</p>
+  <p class="section-title" id="section-label">전체</p>
 
-    <div class="stock-group" id="meritz">
-      <div class="stock-header">
-        <h3>메리츠금융지주</h3>
-        <span class="code">138040</span>
-        <span class="count">1건</span>
-      </div>
-      <a href="./invest/meritz/meritz_20260516.html" class="article-row">
-        <span class="article-date">2026.05.16</span>
-        <div class="article-info">
-          <div class="article-title">5-Pillar 투자분석</div>
-          <div class="article-desc">Q1 2026 실적 반영 · 종합 투자 판단</div>
-        </div>
-        <span class="article-go">→</span>
-      </a>
+  <div class="stock-group" data-stock="meritz" id="meritz">
+    <div class="stock-header">
+      <h3>메리츠금융지주</h3>
+      <span class="code">138040</span>
+      <span class="count">1건</span>
     </div>
-
-    <div class="stock-group" id="koreanre">
-      <div class="stock-header">
-        <h3>코리안리</h3>
-        <span class="code">003690</span>
-        <span class="count">1건</span>
+    <a href="./invest/meritz/meriz_20260516.html" class="article-row">
+      <span class="article-date">2026.05.16</span>
+      <div class="article-info">
+        <div class="article-title">5-Pillar 투자분석</div>
+        <div class="article-desc">Q1 2026 실적 반영 · 종합 투자 판단</div>
       </div>
-      <a href="./invest/koreanre/koreanRE_20260516.html" class="article-row">
-        <span class="article-date">2026.05.15</span>
-        <div class="article-info">
-          <div class="article-title">투자 분석 보고서</div>
-          <div class="article-desc">국내 유일 전업 재보험사 · 1분기 어닝 서프라이즈 · Conditional Buy</div>
-        </div>
-        <span class="article-go">→</span>
-      </a>
-    </div>
+      <span class="article-go">→</span>
+    </a>
   </div>
 
-  <div class="section" id="others">
-    <p class="section-title">개별 분석</p>
-    <div class="empty-note">아직 글이 없습니다</div>
+  <div class="stock-group" data-stock="korean-re" id="korean-re">
+    <div class="stock-header">
+      <h3>코리안리</h3>
+      <span class="code">003690</span>
+      <span class="count">1건</span>
+    </div>
+    <a href="./invest/korean-re/koreanRE_20260516.html" class="article-row">
+      <span class="article-date">2026.05.15</span>
+      <div class="article-info">
+        <div class="article-title">투자 분석 보고서</div>
+        <div class="article-desc">국내 유일 전업 재보험사 · 1분기 어닝 서프라이즈 · Conditional Buy</div>
+      </div>
+      <span class="article-go">→</span>
+    </a>
   </div>
+
+  <!--
+  새 종목 추가 시 아래 형식으로 (data-stock은 고유 키):
+
+  <div class="stock-group" data-stock="samsung" id="samsung">
+    <div class="stock-header">
+      <h3>삼성전자</h3>
+      <span class="code">005930</span>
+      <span class="count">1건</span>
+    </div>
+    <a href="./invest/others/samsung_20260601.html" class="article-row">
+      <span class="article-date">2026.06.01</span>
+      <div class="article-info">
+        <div class="article-title">분석 제목</div>
+        <div class="article-desc">간단 설명</div>
+      </div>
+      <span class="article-go">→</span>
+    </a>
+  </div>
+
+  종목 메뉴 드롭다운에 추가하려면 dropdown-panel 안에:
+  <a class="dd-item" onclick="filterStock('samsung'); return false;">
+    삼성전자 <span class="dd-code">005930</span>
+  </a>
+  -->
 
 </main>
 
 <footer>
   <p><a href="https://github.com/FeelDaum">GitHub</a> &nbsp;·&nbsp; FeelDaum © 2026</p>
 </footer>
+
+<script>
+  const names = {
+    'meritz': '메리츠금융지주',
+    'korean-re': '코리안리'
+  };
+
+  function filterStock(key) {
+    const groups = document.querySelectorAll('.stock-group');
+    const label = document.getElementById('section-label');
+    const navAll = document.querySelector('nav .nav-link');
+
+    if (key === 'all') {
+      groups.forEach(g => g.classList.remove('hidden'));
+      label.textContent = '전체';
+      navAll.classList.add('active');
+    } else {
+      groups.forEach(g => {
+        g.dataset.stock === key
+          ? g.classList.remove('hidden')
+          : g.classList.add('hidden');
+      });
+      label.textContent = names[key] || key;
+      navAll.classList.remove('active');
+    }
+  }
+</script>
 
 </body>
 </html>
