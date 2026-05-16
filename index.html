@@ -334,6 +334,9 @@ footer a:hover { color: var(--text); }
       <a class="dd-item" onclick="filterStock('hyundairotem'); return false;">
         현대로템 <span class="dd-code">064350</span>
       </a>
+      <a class="dd-item" onclick="filterStock('KSS해운'); return false;">
+        KSS해운 <span class="dd-code">044450</span>
+      </a>     
     </div>
   </div>
 </nav>
@@ -390,6 +393,22 @@ footer a:hover { color: var(--text); }
     </a>
   </div>
 
+  <div class="stock-group" data-stock="KSS해운" id="KSS해운">
+    <div class="stock-header">
+      <h3>KSS해운</h3>
+      <span class="code">044450</span>
+      <span class="count">1건</span>
+    </div>
+    <a href="./invest/KSS해운/KSS해운_20260516.html" class="article-row">
+      <span class="article-date">2026.05.16</span>
+      <div class="article-info">
+        <div class="article-title">투자 분석 보고서</div>
+        <div class="article-desc">세계 6위 LPG 해상운송 선사</div>
+      </div>
+      <span class="article-go">→</span>
+    </a>
+  </div>  
+  
 </main>
 
 <footer>
@@ -400,7 +419,8 @@ footer a:hover { color: var(--text); }
   const names = {
     'meritz': '메리츠금융지주',
     'koreanre': '코리안리',
-    'hyundairotem': '현대로템'
+    'hyundairotem': '현대로템',
+    'KSS해운': 'KSS해운'
   };
 
   function filterStock(key) {
