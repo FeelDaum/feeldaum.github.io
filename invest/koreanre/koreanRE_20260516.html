@@ -1,1 +1,792 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>코리안리 (003690) 투자 분석 보고서</title>
+<meta name="description" content="코리안리재보험 투자 스터디 분석 보고서. 하드/소프트 마켓, 공동재보험, 이란전쟁 영향, 5대 투자프레임, 시나리오별 적정가 분석.">
+<meta name="keywords" content="코리안리, 003690, 재보험, 투자분석, 하드마켓, 공동재보험, 이란전쟁">
+<meta name="author" content="투자 스터디 그룹">
+<meta property="og:type" content="article">
+<meta property="og:title" content="코리안리 (003690) 투자 분석 보고서">
+<meta property="og:description" content="국내 유일 전업 재보험사 코리안리 심층 분석 | 1Q2026 어닝 서프라이즈 | 이란전쟁 영향 | 적정가 19,657원">
+<meta property="og:locale" content="ko_KR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="코리안리 (003690) 투자 분석">
+<meta name="theme-color" content="#1A2744">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700;900&family=Noto+Sans+KR:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js" defer></script>
+<style>
+:root{--navy:#1A2744;--blue:#1D4E89;--gold:#9A6F00;--goldB:#C9A84C;--goldBG:#FBF5E6;--off:#F7F8FA;--border:#D8DDE8;--text:#1E293B;--textM:#475569;--textL:#64748B;--green:#166534;--greenBG:#F0FDF4;--red:#991B1B;--redBG:#FEF2F2;--orange:#9A3412;--orBG:#FFF7ED;}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Noto Sans KR',sans-serif;background:#fff;color:var(--text);line-height:1.75;font-size:15px;}
 
+/* TOP NAV */
+.topnav{position:sticky;top:0;z-index:100;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);display:flex;align-items:center;gap:0;overflow-x:auto;border-bottom:1px solid var(--border);box-shadow:0 1px 6px rgba(0,0,0,.06);}
+.topnav a{flex-shrink:0;padding:10px 14px;font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--textL);text-decoration:none;letter-spacing:1.5px;border-right:1px solid var(--border);transition:color .2s,background .2s;white-space:nowrap;}
+.topnav a:hover{color:var(--navy);background:var(--off);}
+.topnav a.active{color:var(--navy);font-weight:600;background:var(--goldBG);}
+
+/* PRICE BAR */
+.price-bar{background:var(--off);border-bottom:1px solid var(--border);padding:10px 6%;display:flex;align-items:center;gap:28px;flex-wrap:wrap;}
+.pb-ticker{font-family:'IBM Plex Mono',monospace;font-size:.68rem;color:var(--textL);letter-spacing:2px;}
+.pb-price{font-family:'IBM Plex Mono',monospace;font-size:1.55rem;font-weight:700;color:var(--navy);}
+.pb-change{font-family:'IBM Plex Mono',monospace;font-size:.9rem;font-weight:600;color:var(--green);}
+.pb-div{width:1px;height:26px;background:var(--border);flex-shrink:0;}
+.pb-stat{display:flex;flex-direction:column;}
+.pb-sl{font-size:.62rem;color:var(--textL);letter-spacing:1px;}
+.pb-sv{font-family:'IBM Plex Mono',monospace;font-size:.86rem;color:var(--textM);font-weight:600;}
+.pb-date{margin-left:auto;font-family:'IBM Plex Mono',monospace;font-size:.62rem;color:var(--textL);}
+
+/* HERO */
+.hero{background:#FFFFFF;padding:52px 6% 44px;position:relative;overflow:hidden;border-bottom:1px solid var(--border);}
+.hero::before{content:'';position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(180deg,var(--navy) 0%,var(--goldB) 100%);}
+.hero::after{content:'';position:absolute;right:0;top:0;width:42%;height:100%;background:linear-gradient(135deg,transparent,rgba(26,39,68,.025));pointer-events:none;}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:18px;}
+.hero-eyebrow-line{width:32px;height:1px;background:var(--border);}
+.hero-label{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:4px;color:var(--textL);text-transform:uppercase;}
+.hero-ticker{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:2px;color:var(--gold);font-weight:600;padding:2px 8px;background:var(--goldBG);border:1px solid #DFC878;}
+.hero h1{font-family:'IBM Plex Mono',monospace;font-size:clamp(1.5rem,4vw,3.2rem);font-weight:600;line-height:1.2;color:var(--navy);letter-spacing:-0.5px;}
+.hero h1 .dot{color:var(--goldB);margin:0 10px;font-weight:300;}
+.hero h1 .date{display:block;font-size:clamp(.9rem,2vw,1.4rem);font-weight:400;color:var(--textL);margin-top:4px;letter-spacing:1px;}
+.hero-sub{margin-top:12px;font-size:.88rem;color:var(--textM);max-width:460px;line-height:1.75;}
+.hero-divider{width:36px;height:3px;background:var(--goldB);margin:16px 0;}
+.verdict-badge{display:inline-block;background:var(--navy);color:#FFFFFF;padding:8px 18px;font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:2px;}
+.hero-stats{position:absolute;right:6%;top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:0;border:1px solid var(--border);}
+.hstat{text-align:right;padding:13px 17px;border-bottom:1px solid var(--border);}
+.hstat:last-child{border-bottom:none;}
+.hstat .v{font-family:'IBM Plex Mono',monospace;font-size:1.2rem;font-weight:700;color:var(--navy);}
+.hstat .l{font-size:.6rem;color:var(--textL);letter-spacing:1px;margin-top:2px;}
+
+/* TOC */
+.toc{background:var(--off);padding:40px 6%;border-bottom:1px solid var(--border);}
+.toc-title{font-family:'Noto Serif KR',serif;font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:16px;}
+.toc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:7px;}
+.toc-item{display:flex;align-items:center;gap:11px;padding:10px 14px;background:#fff;border:1px solid var(--border);border-left:3px solid var(--navy);text-decoration:none;color:var(--text);transition:all .18s;}
+.toc-item:hover{border-left-color:var(--goldB);background:var(--goldBG);}
+.toc-num{font-family:'IBM Plex Mono',monospace;font-size:.65rem;color:var(--gold);min-width:18px;}
+.toc-text{font-size:.8rem;}
+
+/* SECTIONS */
+section{padding:56px 6%;border-bottom:1px solid var(--border);}
+section:nth-child(odd){background:var(--off);}
+section:nth-child(even){background:#fff;}
+.sec-label{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:4px;color:var(--gold);text-transform:uppercase;margin-bottom:6px;}
+.sec-title{font-family:'Noto Serif KR',serif;font-size:clamp(1.2rem,2.4vw,1.75rem);font-weight:700;color:var(--navy);margin-bottom:26px;padding-bottom:11px;border-bottom:2px solid var(--navy);}
+
+/* GRID */
+.cg{display:grid;gap:12px;}
+.cg2{grid-template-columns:repeat(auto-fit,minmax(240px,1fr));}
+.cg3{grid-template-columns:repeat(auto-fit,minmax(190px,1fr));}
+.cg4{grid-template-columns:repeat(auto-fit,minmax(170px,1fr));}
+.card{background:#fff;border:1px solid var(--border);border-top:3px solid var(--navy);padding:17px 19px;}
+.card h3{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:8px;}
+.card p{font-size:.8rem;color:var(--textM);line-height:1.85;}
+
+/* TABLE */
+.tw{overflow-x:auto;margin-top:14px;}
+table{width:100%;border-collapse:collapse;font-size:.8rem;}
+th{background:var(--navy);color:#fff;font-family:'IBM Plex Mono',monospace;font-size:.66rem;padding:9px 11px;text-align:left;}
+td{padding:8px 11px;border-bottom:1px solid var(--border);color:var(--text);}
+tr:nth-child(even) td{background:var(--off);}
+tr:hover td{background:var(--goldBG);}
+.tn{font-family:'IBM Plex Mono',monospace;}
+.tu{color:var(--green);font-weight:700;}
+.td{color:var(--red);font-weight:700;}
+.tg{color:var(--gold);font-weight:700;}
+.th{color:var(--navy);font-weight:700;}
+
+/* FLOW */
+.flow{display:flex;align-items:center;flex-wrap:wrap;margin:18px 0;}
+.fb{flex:1;min-width:88px;background:#fff;border:1px solid var(--border);padding:13px 9px;text-align:center;}
+.fb.hl{background:var(--navy);border-color:var(--navy);}
+.fb.hl h4{color:#fff;}.fb.hl p{color:var(--goldB);}
+.fb h4{font-size:.8rem;font-weight:700;color:var(--navy);}
+.fb p{font-size:.67rem;color:var(--textL);margin-top:3px;}
+.fa{font-size:1.15rem;color:var(--goldB);padding:0 4px;flex-shrink:0;}
+
+/* PILLARS */
+.pg{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;}
+.pillar{border:1px solid var(--border);overflow:hidden;background:#fff;}
+.ph{padding:11px 15px;display:flex;justify-content:space-between;align-items:center;background:var(--navy);}
+.ph h3{font-size:.84rem;font-weight:700;color:#fff;}
+.ps{font-size:.75rem;color:var(--goldB);}
+.pb-c{padding:13px 15px;}
+.pb-c p{font-size:.77rem;color:var(--textM);line-height:1.85;}
+
+/* SCENARIOS */
+.sc-row{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin-top:16px;}
+.sc{border:2px solid;overflow:hidden;background:#fff;}
+.sc-h{padding:14px;display:flex;justify-content:space-between;align-items:center;}
+.sc-h h3{font-size:1.05rem;font-weight:900;font-family:'IBM Plex Mono',monospace;}
+.sc-h .prob{font-size:.72rem;color:var(--textM);}
+.sc-b{padding:14px;border-top:1px solid var(--border);}
+.sc-b p{font-size:.77rem;color:var(--textM);margin-bottom:5px;}
+.sc-price{margin-top:10px;padding:9px;text-align:center;font-family:'IBM Plex Mono',monospace;font-size:1.15rem;font-weight:700;}
+
+/* BIG STATS */
+.bs{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));border:1px solid var(--border);margin:18px 0;}
+.bstat{padding:18px 14px;text-align:center;border-right:1px solid var(--border);}
+.bstat:last-child{border-right:none;}
+.bstat .bv{font-family:'IBM Plex Mono',monospace;font-size:1.4rem;font-weight:700;color:var(--navy);display:block;}
+.bstat .bl{font-size:.66rem;color:var(--textL);margin-top:4px;}
+
+/* INSIGHT */
+.insight{background:var(--goldBG);border:1px solid #DFC878;border-left:4px solid var(--goldB);padding:14px 18px;margin:16px 0;}
+.insight p{font-size:.83rem;color:var(--text);line-height:1.9;}
+.insight strong{color:var(--navy);}
+
+/* RISK */
+.rl{display:flex;flex-direction:column;gap:9px;margin-top:11px;}
+.ri{display:flex;gap:12px;align-items:flex-start;padding:13px 15px;background:#fff;border:1px solid var(--border);border-left:4px solid;}
+.rb{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:1px;padding:2px 7px;flex-shrink:0;margin-top:2px;border-radius:2px;font-weight:600;}
+.rc h4{font-size:.84rem;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.rc p{font-size:.77rem;color:var(--textM);line-height:1.75;}
+
+/* ACTION */
+.ag{display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));gap:8px;margin-top:16px;}
+.ai{padding:15px;text-align:center;border:1px solid var(--border);border-top:3px solid;background:#fff;}
+.ai .az{font-size:.62rem;letter-spacing:2px;margin-bottom:5px;font-family:'IBM Plex Mono',monospace;color:var(--textL);}
+.ai .ap{font-family:'IBM Plex Mono',monospace;font-size:1.05rem;font-weight:700;color:var(--navy);}
+.ai .ar{font-size:.67rem;color:var(--textL);margin-top:3px;}
+
+/* VERDICT */
+.vbox{border:2px solid var(--navy);padding:30px;text-align:center;margin-bottom:26px;background:var(--navy);}
+.vm{font-family:'IBM Plex Mono',monospace;font-size:.62rem;letter-spacing:5px;color:var(--goldB);margin-bottom:10px;}
+.vr{font-family:'Noto Serif KR',serif;font-size:2rem;font-weight:900;color:#fff;margin-bottom:8px;}
+.vd{font-size:.88rem;color:#94A3B8;}
+
+/* TIMELINE */
+.tl{position:relative;padding-left:19px;margin-top:10px;}
+.tl::before{content:'';position:absolute;left:4px;top:0;bottom:0;width:1px;background:var(--border);}
+.tli{position:relative;margin-bottom:13px;}
+.tli::before{content:'';position:absolute;left:-15px;top:6px;width:6px;height:6px;border-radius:50%;background:var(--goldB);}
+.ty{font-family:'IBM Plex Mono',monospace;font-size:.66rem;color:var(--gold);margin-bottom:2px;font-weight:600;}
+.tt{font-size:.79rem;color:var(--textM);line-height:1.7;}
+
+/* TAGS */
+.tag{display:inline-block;padding:1px 6px;font-size:.62rem;border-radius:2px;font-family:'IBM Plex Mono',monospace;margin-left:5px;vertical-align:middle;font-weight:600;}
+.t1{background:var(--orBG);color:var(--orange);border:1px solid #FDBA74;}
+.t2{background:var(--greenBG);color:var(--green);border:1px solid #86EFAC;}
+.t3{background:var(--goldBG);color:var(--gold);border:1px solid #DFC878;}
+.t4{background:#EFF6FF;color:#1D4ED8;border:1px solid #93C5FD;}
+
+/* DIVIDER */
+.div{height:1px;background:var(--border);margin:20px 0;}
+
+/* PRO/CON */
+.pc{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.cl{list-style:none;display:flex;flex-direction:column;gap:6px;}
+.cl li{font-size:.78rem;color:var(--textM);padding:7px 10px;border-left:3px solid;background:var(--off);}
+
+/* MARKET CYCLE */
+.mc{display:flex;gap:0;margin:20px 0;border:1px solid var(--border);}
+.mcp{flex:1;padding:18px 15px;border-right:1px solid var(--border);}
+.mcp:last-child{border-right:none;}
+.mcp.act{background:var(--navy);}
+.mcp h4{font-size:.86rem;font-weight:700;margin-bottom:7px;}
+.mcp.act h4{color:var(--goldB);}
+.mcp p{font-size:.73rem;color:var(--textM);line-height:1.7;}
+.mcp.act p{color:#94A3B8;}
+.mc-badge{display:inline-block;padding:2px 8px;font-size:.63rem;font-family:'IBM Plex Mono',monospace;font-weight:700;margin-bottom:7px;border-radius:2px;}
+
+/* CO-REINSURANCE */
+.crf{display:flex;align-items:stretch;gap:0;margin:14px 0;}
+.cf{flex:1;border:1px solid var(--border);padding:12px;text-align:center;}
+.cf h4{font-size:.79rem;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.cf p{font-size:.7rem;color:var(--textM);line-height:1.65;}
+.cf.hl{background:var(--navy);}
+.cf.hl h4{color:var(--goldB);}
+.cf.hl p{color:#94A3B8;}
+.cfa{display:flex;align-items:center;padding:0 5px;font-size:1.4rem;color:var(--goldB);flex-shrink:0;}
+.cr-gain{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px;}
+.crg{padding:11px 13px;border-left:3px solid;}
+.crg h5{font-size:.76rem;font-weight:700;margin-bottom:3px;}
+.crg p{font-size:.72rem;color:var(--textM);line-height:1.65;}
+
+/* IRAN WAR */
+.iran-impact{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:16px 0;}
+.iran-card{padding:16px 17px;border:1px solid;border-radius:0;}
+.iran-card h4{font-size:.86rem;font-weight:700;margin-bottom:8px;}
+.iran-card ul{list-style:none;display:flex;flex-direction:column;gap:5px;}
+.iran-card ul li{font-size:.77rem;color:var(--textM);padding-left:14px;position:relative;line-height:1.65;}
+.iran-card ul li::before{content:'→';position:absolute;left:0;color:inherit;opacity:.6;}
+.net-assessment{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:10px;margin-top:14px;}
+.net-item{padding:14px;border:1px solid var(--border);text-align:center;}
+.net-item .ni{font-size:1.5rem;margin-bottom:5px;}
+.net-item h5{font-size:.8rem;font-weight:700;color:var(--navy);margin-bottom:4px;}
+.net-item p{font-size:.72rem;color:var(--textM);}
+
+/* CHART */
+.chart-wrap{background:#fff;border:1px solid var(--border);padding:20px;margin:16px 0;}
+.chart-wrap h3{font-size:.88rem;font-weight:700;color:var(--navy);margin-bottom:3px;}
+.chart-sub{font-size:.72rem;color:var(--textL);margin-bottom:14px;font-family:'IBM Plex Mono',monospace;}
+.chart-events{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;}
+.ce{display:flex;align-items:center;gap:5px;font-size:.7rem;color:var(--textM);}
+.ce-dot{width:7px;height:7px;border-radius:50%;}
+
+/* BACK TO TOP */
+#back-top{position:fixed;bottom:24px;right:24px;width:40px;height:40px;background:var(--navy);border:1px solid var(--goldB);color:var(--goldB);font-size:1rem;cursor:pointer;display:none;align-items:center;justify-content:center;z-index:999;transition:opacity .2s;}
+#back-top.show{display:flex;}
+#back-top:hover{background:var(--goldB);color:var(--navy);}
+
+/* FOOTER */
+footer{background:var(--navy);padding:30px 6%;text-align:center;}
+footer p{font-size:.73rem;color:#64748B;line-height:1.8;}
+.ft{color:var(--goldB);font-family:'IBM Plex Mono',monospace;font-size:.76rem;margin-bottom:8px;}
+
+/* PRINT */
+@media print{
+  .topnav,.price-bar,#back-top{display:none!important;}
+  section{break-inside:avoid;padding:30px 5%;}
+  .hero{padding:30px 5%;}
+  .hero-stats{display:none;}
+  body{font-size:13px;}
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .hero-stats{display:none;}
+  .sc-row,.pc,.mc,.iran-impact,.cr-gain{grid-template-columns:1fr;}
+  .mc{flex-direction:column;}
+  .crf{flex-direction:column;}
+  .cfa{transform:rotate(90deg);justify-content:center;padding:4px 0;}
+  section{padding:44px 5%;}
+  .hero,.toc,.price-bar{padding-left:5%;padding-right:5%;}
+  .bs{grid-template-columns:repeat(2,1fr);}
+  .bstat{border-bottom:1px solid var(--border);}
+  .topnav a{padding:9px 11px;font-size:.58rem;}
+}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<nav class="topnav" id="topnav">
+  <a href="#s1">01 개요</a>
+  <a href="#s2">02 하드/소프트</a>
+  <a href="#s3">03 공동재보험</a>
+  <a href="#s4">04 이익구조</a>
+  <a href="#s5">05 주가·실적</a>
+  <a href="#s6">06 투자프레임</a>
+  <a href="#s7">07 경영진·리스크</a>
+  <a href="#s8">08 이란전쟁</a>
+  <a href="#s9">09 3년전망·1Q</a>
+  <a href="#s10">10 결론</a>
+</nav>
+
+<!-- PRICE BAR -->
+<div class="price-bar">
+  <div>
+    <div class="pb-ticker">003690 · KOSPI</div>
+    <div style="display:flex;align-items:baseline;gap:9px;">
+      <div class="pb-price">13,130원</div>
+      <div class="pb-change">▲ 930 (+7.62%)</div>
+    </div>
+  </div>
+  <div class="pb-div"></div>
+  <div class="pb-stat"><div class="pb-sl">시가</div><div class="pb-sv">12,080</div></div>
+  <div class="pb-stat"><div class="pb-sl">고가</div><div class="pb-sv">13,600</div></div>
+  <div class="pb-stat"><div class="pb-sl">저가</div><div class="pb-sv">11,810</div></div>
+  <div class="pb-div"></div>
+  <div class="pb-stat"><div class="pb-sl">52주 고/저</div><div class="pb-sv">15,400 / 7,610</div></div>
+  <div class="pb-stat"><div class="pb-sl">시가총액</div><div class="pb-sv">~2.32조</div></div>
+  <div class="pb-date">2026.05.15 장마감</div>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-eyebrow">
+    <div class="hero-eyebrow-line"></div>
+    <div class="hero-label">Investment Research · Study Group</div>
+    <div class="hero-ticker">KRX: 003690</div>
+  </div>
+  <h1>Korean Reinsurance<span class="dot">/</span><br>코리안리재보험
+    <span class="date">2026.05.15</span>
+  </h1>
+  <div class="hero-divider"></div>
+  <p class="hero-sub">Korea's Only Dedicated Reinsurer · 1Q2026 Earnings Surprise<br>국내 유일 전업 재보험사 · S&P A+ 등급</p>
+  <div class="verdict-badge">CONDITIONAL BUY — Entry below ₩12,300</div>
+  <div class="hero-stats">
+    <div class="hstat"><div class="v">13,130<span style="font-size:.75rem">원</span></div><div class="l">현재가 (2026.05.15)</div></div>
+    <div class="hstat"><div class="v">6.3<span style="font-size:.75rem">배</span></div><div class="l">Forward PER</div></div>
+    <div class="hstat"><div class="v">0.63<span style="font-size:.75rem">배</span></div><div class="l">PBR</div></div>
+    <div class="hstat"><div class="v">19,657<span style="font-size:.75rem">원</span></div><div class="l">확률가중 적정가</div></div>
+    <div class="hstat"><div class="v">4.3<span style="font-size:.75rem">%</span></div><div class="l">배당수익률</div></div>
+  </div>
+</div>
+
+<!-- TOC -->
+<div class="toc">
+  <div class="toc-title">분석 목차</div>
+  <div class="toc-grid">
+    <a href="#s1" class="toc-item"><span class="toc-num">01</span><span class="toc-text">재보험이란? — 기업 개요</span></a>
+    <a href="#s2" class="toc-item"><span class="toc-num">02</span><span class="toc-text">하드/소프트 마켓이란?</span></a>
+    <a href="#s3" class="toc-item"><span class="toc-num">03</span><span class="toc-text">공동재보험 심층 이해</span></a>
+    <a href="#s4" class="toc-item"><span class="toc-num">04</span><span class="toc-text">이익 구조 & 투자 포트폴리오</span></a>
+    <a href="#s5" class="toc-item"><span class="toc-num">05</span><span class="toc-text">주가 차트 & 10년 실적</span></a>
+    <a href="#s6" class="toc-item"><span class="toc-num">06</span><span class="toc-text">5대 투자 프레임</span></a>
+    <a href="#s7" class="toc-item"><span class="toc-num">07</span><span class="toc-text">경영진 & 핵심 리스크</span></a>
+    <a href="#s8" class="toc-item"><span class="toc-num">08</span><span class="toc-text">이란전쟁 — 하드마켓 영향</span></a>
+    <a href="#s9" class="toc-item"><span class="toc-num">09</span><span class="toc-text">3년 전망 & 1Q2026 실적</span></a>
+    <a href="#s10" class="toc-item"><span class="toc-num">10</span><span class="toc-text">밸류에이션 & 투자 결론</span></a>
+  </div>
+</div>
+
+<!-- S1 -->
+<section id="s1">
+  <div class="sec-label">Section 01</div>
+  <div class="sec-title">재보험이란? — "보험의 보험"</div>
+  <div class="cg cg3" style="margin-bottom:24px;">
+    <div class="card"><h3>📋 기업 기본정보</h3><p>코리안리재보험 (003690 · KOSPI)<br>1963년 설립 · 62년 역사<br>국내 유일 전업 재보험사<br>대표이사: 원종규 사장</p></div>
+    <div class="card"><h3>🏅 신용등급 (최근 상향)</h3><p>A.M. Best: A (Stable)<br><strong style="color:var(--navy)">S&P: A+(Stable) ← 상향</strong><br>Moody's: A1 (Stable)</p></div>
+    <div class="card"><h3>🌍 글로벌 네트워크</h3><p>영국·말레이시아·두바이·중국<br>스위스·콜롬비아<br><strong style="color:var(--navy)">2026.01 인도 IFSC 신설</strong></p></div>
+  </div>
+  <div class="flow">
+    <div class="fb"><h4>일반인</h4><p>보험 가입</p></div><div class="fa">→</div>
+    <div class="fb"><h4>삼성화재<br>(원보험사)</h4><p>위험 분산 필요</p></div><div class="fa">→</div>
+    <div class="fb hl"><h4>코리안리<br>(재보험사)</h4><p>위험 수재 + 투자</p></div><div class="fa">→</div>
+    <div class="fb"><h4>뮌헨Re<br>스위스Re</h4><p>재재보험</p></div>
+  </div>
+  <div class="insight"><p>코리안리는 ①보험영업이익(수재보험료 − 지급보험금)과 ②보험료를 운용한 투자이익, 두 엔진으로 수익을 냅니다. 현재 이익의 절반 이상이 투자에서 나옵니다.</p></div>
+</section>
+
+<!-- S2 -->
+<section id="s2">
+  <div class="sec-label">Section 02</div>
+  <div class="sec-title">하드마켓 vs 소프트마켓이란?</div>
+  <p style="font-size:.86rem;color:var(--textM);margin-bottom:18px;">재보험 요율(가격)은 수요와 공급에 따라 반복적으로 올랐다 내렸다 합니다. 이 사이클을 이해하는 것이 코리안리 투자의 핵심입니다.</p>
+  <div class="mc">
+    <div class="mcp">
+      <div class="mc-badge" style="background:var(--greenBG);color:var(--green);">소프트마켓</div>
+      <h4 style="color:var(--green);">요율 하락기</h4>
+      <p>대형 재해가 없는 해가 이어지면 경쟁자들이 늘어나 요율(가격)이 내려갑니다.<br><br>→ 재보험사 마진 압박<br>→ 코리안리 이익 감소</p>
+    </div>
+    <div class="mcp">
+      <div class="mc-badge" style="background:var(--redBG);color:var(--red);">트리거</div>
+      <h4 style="color:var(--red);">대형 재해 발생</h4>
+      <p>허리케인·지진·산불 등 대형 재해로 재보험사들이 손실을 봅니다. 약한 회사들이 떠나고 요율이 오르기 시작합니다.</p>
+    </div>
+    <div class="mcp act">
+      <div class="mc-badge" style="background:rgba(220,38,38,.15);color:#F87171;">하드마켓 ← 현재</div>
+      <h4>요율 상승기</h4>
+      <p>담보 공급이 줄고 수요가 늘면서 요율이 올라갑니다. 재보험사들이 수익성 위주로 계약을 선별합니다.<br><br>→ 재보험사 마진 개선<br>→ 코리안리 이익 증가</p>
+    </div>
+    <div class="mcp">
+      <div class="mc-badge" style="background:#EFF6FF;color:#1D4ED8;">정상화</div>
+      <h4 style="color:#1D4ED8;">담보 재유입</h4>
+      <p>높은 요율에 이익이 나면 신규 재보험사와 대체자본(CAT본드 등)이 시장에 들어와 다시 소프트화됩니다.</p>
+    </div>
+  </div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>구간</th><th>시장</th><th>주요 사건</th><th>코리안리 이익</th></tr></thead>
+      <tbody>
+        <tr><td>2015~2016</td><td>소프트마켓 후반</td><td>요율 하락, 경쟁 심화</td><td class="td">1,600~1,865억</td></tr>
+        <tr><td>2017~2018</td><td style="color:var(--red);font-weight:600;">손실 집중</td><td>Harvey·Irma·Maria 허리케인 3연속</td><td class="td">1,029~1,330억</td></tr>
+        <tr><td>2019~2021</td><td>하드마켓 초입</td><td>요율 인상 시작, COVID-19 혼재</td><td>1,421~1,887억</td></tr>
+        <tr><td>2022~2024</td><td style="font-weight:600;color:var(--navy);">하드마켓 본격</td><td>이상기후 연속, IFRS17, 금리 급등</td><td class="tu">2,785~3,167억</td></tr>
+        <tr style="background:var(--goldBG);"><td>2025~현재</td><td class="tg">하드마켓 후반+이란전쟁</td><td>소프트 전환 지연, 이란 전쟁 변수</td><td class="tg">3,220억+ 역대 최대</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="insight"><p><strong>지금 어디에 있나:</strong> 딜로이트는 "2026년은 하드마켓이 끝나고 새 압박이 시작되는 진입점"으로 평가했습니다. 그러나 이란 전쟁으로 소프트 전환이 1~2년 지연될 가능성이 높아졌습니다.</p></div>
+</section>
+
+<!-- S3 -->
+<section id="s3">
+  <div class="sec-label">Section 03</div>
+  <div class="sec-title">공동재보험이란? — 코리안리 이익의 숨은 엔진</div>
+  <div class="cg cg2" style="margin-bottom:20px;">
+    <div class="card" style="border-top-color:#3B82F6;"><h3>일반 재보험</h3><p>삼성화재: "사고 나면 보험금의 50%를 대신 내줘"<br>코리안리: "그래, 보험료의 50%를 줘"<br><br>→ <strong style="color:var(--navy)">사고 리스크</strong>만 나누는 구조<br>→ 자산·부채는 삼성화재 장부에 그대로</p></div>
+    <div class="card" style="border-top-color:var(--green);"><h3>공동재보험 (자산집약형)</h3><p>삼성생명: "미래 줄 보험금(부채)과 그걸 대비한 자산을 통째로 넘겨줄게"<br>코리안리: "좋아, 자산+부채 전부 인수할게"<br><br>→ <strong style="color:var(--navy)">자산+부채 전체</strong>가 이동하는 구조<br>→ 코리안리 운용자산이 급증하는 이유</p></div>
+  </div>
+  <div class="crf">
+    <div class="cf"><h4>IFRS17 도입 (2023)</h4><p>보험 부채를 <strong>시장금리로 재평가</strong><br>부채가 크게 잡힘 → K-ICS 하락</p></div>
+    <div class="cfa">→</div>
+    <div class="cf"><h4>삼성생명 고민</h4><p>"K-ICS 비율이 낮아<br>규제 요건 충족 어렵다"</p></div>
+    <div class="cfa">→</div>
+    <div class="cf hl"><h4>공동재보험 활용</h4><p>부채+자산 5,000억을<br>코리안리에 이전<br>→ K-ICS 개선!</p></div>
+    <div class="cfa">→</div>
+    <div class="cf"><h4>코리안리 혜택</h4><p>자산 5,000억 운용<br>수익률 5% → 연 250억<br>운용자산 지속 증가!</p></div>
+  </div>
+  <div class="cr-gain">
+    <div class="crg" style="border-left-color:var(--green);background:var(--greenBG);"><h5 style="color:var(--green);">코리안리가 얻는 것</h5><p>운용자산 확대 → 투자이익 증가<br>K-ICS 제도 지속 → 수요 안정<br>외국 재보험사가 대체 어려운 독점적 구조</p></div>
+    <div class="crg" style="border-left-color:#3B82F6;background:#EFF6FF;"><h5 style="color:#1D4ED8;">생명보험사가 얻는 것</h5><p>K-ICS 자본비율 개선<br>장기보험 위험 분산<br>한국 규제 전문가와 직접 협력</p></div>
+  </div>
+  <div class="insight"><p><strong>핵심:</strong> 코리안리 운용자산이 2022년 약 8조원 → 2026년 1Q 11.7조원으로 급증한 것이 공동재보험의 증거입니다. IFRS17/K-ICS 규제가 유지되는 한 수요는 구조적으로 지속됩니다.</p></div>
+</section>
+
+<!-- S4 -->
+<section id="s4">
+  <div class="sec-label">Section 04</div>
+  <div class="sec-title">이익 구조 & 투자 포트폴리오</div>
+  <div class="cg cg2">
+    <div class="card"><h3>엔진 ① 보험영업이익</h3><p><strong style="color:var(--navy)">수재보험료 − 지급보험금 − 운영비</strong><br><br>합산비율이 낮을수록 수익성↑<br>자연재해 발생 시 즉각 이익 훼손<br>저마진 계약 2조원 제거 → 매출↓ 이익률↑</p></div>
+    <div class="card"><h3>엔진 ② 투자영업이익</h3><p><strong style="color:var(--navy)">운용자산(11.7조) × 수익률(5.42%)</strong><br><br>공동재보험 수재 → 운용자산 급증<br>업계 평균(3.62%) 대비 1.5배 아웃퍼폼</p></div>
+  </div>
+  <div class="div"></div>
+  <div class="cg cg3">
+    <div class="card" style="border-top-color:var(--goldB);"><h3>① 저마진 계약 제거</h3><p>자동차·장기보험 재보험 2조원 축소. 매출↓ · 이익률↑</p></div>
+    <div class="card" style="border-top-color:var(--goldB);"><h3>② IFRS17 회계 변경</h3><p>보험수익 인식이 계약 기간에 분산됨 → 수치상 감소</p></div>
+    <div class="card" style="border-top-color:var(--goldB);"><h3>③ 투자이익 구조 성장</h3><p>공동재보험 운용자산 확대 + 금리 상승기 재배치 → 5.42%</p></div>
+  </div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>자산 유형</th><th>비중</th><th>수익률</th><th>특징</th></tr></thead>
+      <tbody>
+        <tr><td>국내채권</td><td class="tn">~46%</td><td class="tn">3.9%</td><td>기본기 · 안정적</td></tr>
+        <tr><td>해외채권</td><td class="tn tg">29.9%</td><td class="tn tg">4.4%</td><td>금리 방어용 · 6.1%p 확대</td></tr>
+        <tr><td>대체투자</td><td class="tn">18.6%</td><td class="tn">3.9%</td><td>부동산·인프라·사모펀드</td></tr>
+        <tr><td>주식</td><td class="tn">5.3%</td><td class="tn">13.1%*</td><td>*2025 코스피 강세 일회성</td></tr>
+        <tr><td class="th">전체</td><td class="tn tg">100%</td><td class="tn tg">5.42%</td><td>업계 평균 3.62% 대비 1.5배</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- S5 -->
+<section id="s5">
+  <div class="sec-label">Section 05</div>
+  <div class="sec-title">주가 차트 & 10년 실적</div>
+  <div class="chart-wrap">
+    <h3>코리안리 (003690) 주가 추이</h3>
+    <div class="chart-sub">2025.05 ~ 2026.05 · 월간 종가 · 원(KRW)</div>
+    <canvas id="priceChart" height="85"></canvas>
+    <div class="chart-events">
+      <div class="ce"><div class="ce-dot" style="background:#DC2626;"></div>LA 산불 (2025.01)</div>
+      <div class="ce"><div class="ce-dot" style="background:#1D4E89;"></div>장기 박스권 돌파 (2025.10)</div>
+      <div class="ce"><div class="ce-dot" style="background:#9A6F00;"></div>자기주식 소각 (2026.03)</div>
+      <div class="ce"><div class="ce-dot" style="background:#166534;"></div>1Q 어닝 서프라이즈 (2026.05)</div>
+    </div>
+  </div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>연도</th><th>순이익</th><th>EPS(원)</th><th>BPS(원)</th><th>PBR</th><th>DPS(원)</th><th>ROE</th></tr></thead>
+      <tbody>
+        <tr><td>2018</td><td class="tn td">1,029억</td><td class="tn">528</td><td class="tn">11,819</td><td class="tn">0.47</td><td class="tn">170</td><td class="tn">4.60%</td></tr>
+        <tr><td>2019</td><td class="tn tu">1,887억</td><td class="tn">969</td><td class="tn">12,986</td><td class="tn">0.45</td><td class="tn">309</td><td class="tn">7.68%</td></tr>
+        <tr><td>2020</td><td class="tn">1,421억</td><td class="tn">729</td><td class="tn">13,897</td><td class="tn">0.39</td><td class="tn">278</td><td class="tn">5.78%</td></tr>
+        <tr><td>2021</td><td class="tn">1,533억</td><td class="tn">787</td><td class="tn">14,292</td><td class="tn">0.44</td><td class="tn">324</td><td class="tn">6.07%</td></tr>
+        <tr><td>2022</td><td class="tn tu">2,785억</td><td class="tn">1,429</td><td class="tn">15,367</td><td class="tn">0.35</td><td class="tn">311</td><td class="tn">10.25%</td></tr>
+        <tr><td>2023</td><td class="tn">2,839억</td><td class="tn">1,457</td><td class="tn">18,407</td><td class="tn">0.36</td><td class="tn">458</td><td class="tn">8.73%</td></tr>
+        <tr><td>2024</td><td class="tn">3,167억</td><td class="tn">1,625</td><td class="tn">19,539</td><td class="tn">0.45</td><td class="tn">515</td><td class="tn">9.17%</td></tr>
+        <tr style="background:var(--goldBG);"><td class="tg">2025</td><td class="tn tg">3,220억</td><td class="tn tg">1,653</td><td class="tn tg">20,843</td><td class="tn tg">0.59</td><td class="tn tg">570</td><td class="tn tg">8.74%</td></tr>
+        <tr style="background:var(--greenBG);"><td class="tu">2026 1Q</td><td class="tn tu">2,095억</td><td class="tn tu">979</td><td class="tn">—</td><td class="tn">—</td><td class="tn">—</td><td class="tn tu">22.58%*</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:.7rem;color:var(--textL);margin-top:7px;">* 1Q ROE 연환산 기준</p>
+  <div class="insight"><p><strong>핵심 교훈:</strong> 2018년 최저점(1,029억)은 금리가 아닌 <strong>허리케인 3연속</strong>이 원인. 저금리기(2016~21) 평균 1,400억 vs 고금리기(2022~25) 3,100억. <strong>자연재해 발생 여부가 단기 이익의 지배적 변수.</strong></p></div>
+</section>
+
+<!-- S6 -->
+<section id="s6">
+  <div class="sec-label">Section 06</div>
+  <div class="sec-title">5대 투자 프레임 분석</div>
+  <div class="pg">
+    <div class="pillar"><div class="ph"><h3>① 하방 제한</h3><span class="ps">★★★☆</span></div><div class="pb-c"><p>PBR 0.63배 — 청산가치 37% 할인<br>BPS 20,843원 · 52주 저점 7,610원<br>배당수익률 4.3% · 배당성장 12.2%</p></div></div>
+    <div class="pillar"><div class="ph"><h3>② 상방 카탈리스트</h3><span class="ps">★★★☆</span></div><div class="pb-c"><p>글로벌 하드마켓 요율 강세<br>공동재보험 K-ICS 구조적 수요<br>코리아 밸류업 저PBR 재평가<br>S&P A+ 상향 해외 수주 경쟁력↑</p></div></div>
+    <div class="pillar"><div class="ph" style="background:#166534;"><h3>③ 해자</h3><span class="ps">★★★★</span></div><div class="pb-c"><p>국내 유일 전업 재보험사<br>A.M.Best A / S&P A+ 60년 유지<br>공동재보험 사실상 독점<br>뮌헨Re·스위스Re와 협력 구조</p></div></div>
+    <div class="pillar"><div class="ph" style="background:#9A3412;"><h3>④ 대리인 리스크</h3><span class="ps">★★☆☆</span></div><div class="pb-c"><p>원종규(사장)+원종익(회장) 형제 경영<br>가족 지분 합산 ~18%<br>사외이사 임기 최대 6년 연장<br>이사직 세습 구조</p></div></div>
+    <div class="pillar"><div class="ph" style="background:#166534;"><h3>⑤ 밸류에이션</h3><span class="ps">★★★★</span></div><div class="pb-c"><p>Forward PER ~6.3배 (글로벌 40% 할인)<br>PBR 0.63배 — 역사적 저점 근방<br>자기주식 9.3% 소각 → EPS↑<br>ROE 22.58% (1Q 연환산)</p></div></div>
+  </div>
+</section>
+
+<!-- S7 -->
+<section id="s7">
+  <div class="sec-label">Section 07</div>
+  <div class="sec-title">경영진 분석 & 핵심 리스크</div>
+  <div class="cg cg2" style="margin-bottom:20px;">
+    <div class="card"><h3>원종규 — 대표이사 사장</h3><p>2013년 취임 이후 수익성 중심 전략 주도<br>영업이익률: 2.77%(2013) → 7.03%(1Q2026)<br>자기주식 1,810만주 소각 · 배당 12.2% 성장<br>지분: 4.64%</p></div>
+    <div class="card"><h3>원종익 — 회장 (사내이사)</h3><p>원종규 사장의 형 · 지분: 3.76%<br>가족 합산 지분: ~18%<br>단, 취임 이래 영업이익 146% 증가 실적</p></div>
+  </div>
+  <div class="rl">
+    <div class="ri" style="border-left-color:var(--red);background:var(--redBG);">
+      <div class="rb" style="background:#FEE2E2;color:var(--red);border:1px solid #FECACA;">높음</div>
+      <div class="rc"><h4>🌊 대형 자연재해 — 가장 즉각적인 위협</h4><p>단일 재해로 분기 이익 직격. 2016~18 허리케인 3연속 시 순이익 45% 하락. 기후변화로 빈도 증가 추세.</p></div>
+    </div>
+    <div class="ri" style="border-left-color:var(--orange);">
+      <div class="rb" style="background:var(--orBG);color:var(--orange);border:1px solid #FDBA74;">중간</div>
+      <div class="rc"><h4>📉 금리 하락 — 서서히 작동하는 중장기 리스크</h4><p>금리 1%p 하락 시 3년 후 순이익 약 420억 감소(-10%). 단, 저금리기에도 1,000~1,900억 안정 흑자. BOK 현재 2.5% 동결.</p></div>
+    </div>
+    <div class="ri" style="border-left-color:var(--green);">
+      <div class="rb" style="background:var(--greenBG);color:var(--green);border:1px solid #86EFAC;">낮음</div>
+      <div class="rc"><h4>📊 국내 점유율 하락 — 치명적이지 않은 구조 변화</h4><p>70% → 50% 중반. 저마진 계약 이탈 = 이익률 개선. 공동재보험 독점 유지. 글로벌 400조원 시장으로 상쇄 가능.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- S8: IRAN WAR -->
+<section id="s8">
+  <div class="sec-label">Section 08 — 신규 변수</div>
+  <div class="sec-title">이란전쟁 — 하드마켓 사이클에 미치는 영향</div>
+
+  <div class="cg cg3" style="margin-bottom:18px;">
+    <div class="card" style="border-top-color:var(--red);">
+      <h3>⚡ 전쟁 발발</h3>
+      <p>2026.02.28 미국·이스라엘 대이란 공습 (Operation Epic Fury)<br>이란 최고지도자 하메네이 사망<br>2026.03.02 IRGC 호르무즈 해협 봉쇄 선언<br>상선 16건+ 피격 · 1,000척+ 발이 묶임</p>
+    </div>
+    <div class="card" style="border-top-color:var(--orange);">
+      <h3>💥 에너지 충격</h3>
+      <p>전쟁위험보험료: 선박가격 1% → <strong style="color:var(--red)">5%</strong> 급등<br>브렌트유 배럴당 92달러 (+29%)<br>카타르 LNG 용량 17% 최대 5년 피해<br>IEA: "1970년대 오일쇼크보다 심각"</p>
+    </div>
+    <div class="card" style="border-top-color:var(--navy);">
+      <h3>🏛️ 정책 대응</h3>
+      <p>민간 보험사 중동 인수 거부 지속<br>미 정부 Chubb 주간사 $200억 정부보험 가동<br>한국은행 2.5% 동결 유지 (물가 우려)<br>IEA: 에너지 시장 정상화 최소 4개월</p>
+    </div>
+  </div>
+
+  <div class="div"></div>
+  <p style="font-size:.84rem;font-weight:700;color:var(--navy);margin-bottom:14px;">코리안리에 미치는 두 가지 상반된 힘</p>
+
+  <div class="iran-impact">
+    <div class="iran-card" style="border-color:var(--green);background:var(--greenBG);">
+      <h4 style="color:var(--green);">✅ 긍정 — 하드마켓 연장</h4>
+      <ul>
+        <li>재보험사들 중동 인수 여력 급감 → 담보 공급 위축</li>
+        <li>담보 공급 위축 = 소프트마켓 전환 조건 지연</li>
+        <li>에너지·해상 전쟁 리스크 → 별도 하드마켓 형성</li>
+        <li>물가 상승 → 금리 인하 지연 → 투자이익 방어</li>
+        <li>하드마켓 수명 1~2년 연장 효과</li>
+      </ul>
+    </div>
+    <div class="iran-card" style="border-color:var(--red);background:var(--redBG);">
+      <h4 style="color:var(--red);">⚠️ 부정 — 직접 손실 발생</h4>
+      <ul>
+        <li>해상화물·에너지 보험금 청구 증가</li>
+        <li>한국은 중동 에너지 의존도 높아 손해율 악화</li>
+        <li>원화 약세 → 해외 투자자산 평가손실 가능</li>
+        <li>전쟁 리스크 = 1회성 거대 손실 가능성</li>
+        <li>2Q~3Q 2026 이익 단기 변동성 확대</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="div"></div>
+  <p style="font-size:.82rem;font-weight:700;color:var(--navy);margin-bottom:12px;">코리안리 종목별 노출도 분석</p>
+  <div class="tw">
+    <table>
+      <thead><tr><th>종목</th><th>이란전쟁 노출</th><th>1Q2026 보험비용</th><th>전체 비중</th><th>판단</th></tr></thead>
+      <tbody>
+        <tr><td>해상보험</td><td style="color:var(--red);font-weight:600;">★★★★★ 최직접</td><td class="tn">266억</td><td class="tn">~4%</td><td class="td">단기 주의</td></tr>
+        <tr><td>에너지·기술보험</td><td style="color:var(--orange);font-weight:600;">★★★★☆ 직접</td><td class="tn">68억</td><td class="tn">~1%</td><td class="td">단기 주의</td></tr>
+        <tr><td>화재·종합</td><td style="color:var(--orange);">★★★☆☆ 간접</td><td class="tn">271억</td><td class="tn">~4%</td><td>제한적</td></tr>
+        <tr><td class="th">해외수재 전체</td><td style="color:var(--orange);">★★★☆☆</td><td class="tn">1,864억</td><td class="tn">~28%</td><td class="td">모니터링 필요</td></tr>
+        <tr style="background:var(--greenBG);"><td class="tu">국내·장기·생보</td><td style="color:var(--green);">★☆☆☆☆ 거의 없음</td><td class="tn">2,761억</td><td class="tn">~42%</td><td class="tu">영향 없음</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="net-assessment">
+    <div class="net-item">
+      <div class="ni">⏰</div>
+      <h5>단기 (2Q~3Q 2026)</h5>
+      <p style="font-size:.74rem;color:var(--textM);">해상·에너지 직접 손실<br>이익 변동성 확대</p>
+    </div>
+    <div class="net-item" style="background:var(--goldBG);">
+      <div class="ni">📈</div>
+      <h5>중기 (2027~)</h5>
+      <p style="font-size:.74rem;color:var(--textM);">하드마켓 1~2년 연장<br>요율 강세 지속</p>
+    </div>
+    <div class="net-item" style="background:var(--greenBG);">
+      <div class="ni">💰</div>
+      <h5>투자이익</h5>
+      <p style="font-size:.74rem;color:var(--textM);">금리 동결 연장<br>투자수익 방어</p>
+    </div>
+    <div class="net-item">
+      <div class="ni">🔮</div>
+      <h5>소프트 전환</h5>
+      <p style="font-size:.74rem;color:var(--textM);">기존 2027 예상<br>→ 2028~2029로 지연</p>
+    </div>
+  </div>
+
+  <div class="insight"><p><strong>결론:</strong> 이란전쟁은 코리안리에게 <strong>단기 부정(해상·에너지 손실)</strong>이지만 <strong>중장기 긍정(하드마켓 연장 + 금리 동결)</strong>으로 작용합니다. 소프트마켓 전환 시점은 1~2년 뒤로 밀렸고, 이익 고공행진이 당초보다 더 오래 지속될 가능성이 높아졌습니다.</p></div>
+</section>
+
+<!-- S9 -->
+<section id="s9">
+  <div class="sec-label">Section 09</div>
+  <div class="sec-title">3년 전망 & 1Q2026 실적</div>
+  <div class="tw" style="margin-top:0;">
+    <table>
+      <thead><tr><th>시나리오</th><th>확률</th><th>2026E</th><th>2027E</th><th>2028E</th><th>핵심 가정</th></tr></thead>
+      <tbody>
+        <tr><td style="color:var(--red);font-weight:700;">Bear</td><td class="tn">20%</td><td class="tn">2,800억</td><td class="tn">2,500억</td><td class="tn">2,200억</td><td>대형 재해 2~3건 + 금리 급락</td></tr>
+        <tr style="background:var(--goldBG);"><td class="tg">Base</td><td class="tn tg">55%</td><td class="tn tg">4,000억</td><td class="tn tg">4,300억</td><td class="tn tg">4,100억</td><td>재해 1건 + 요율 안정 + 이란 하드마켓 연장</td></tr>
+        <tr><td style="color:var(--green);font-weight:700;">Bull</td><td class="tn">25%</td><td class="tn">4,800억</td><td class="tn">5,500억</td><td class="tn">6,200억</td><td>재해 無 + 하드마켓 연장 + 해상 요율↑</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:.72rem;color:var(--textL);margin-top:6px;">* Base 2027E를 기존 4,200억 → 4,300억으로 소폭 상향 (이란전쟁의 하드마켓 연장 반영)</p>
+  <div class="div"></div>
+  <p style="font-size:.83rem;font-weight:700;color:var(--navy);margin-bottom:11px;">1Q2026 실적 — 어닝 서프라이즈</p>
+  <div class="bs">
+    <div class="bstat"><span class="bv">2,095억</span><div class="bl">1Q2026 순이익</div></div>
+    <div class="bstat"><span class="bv" style="color:var(--green);">+131%</span><div class="bl">전년 동기 대비</div></div>
+    <div class="bstat"><span class="bv">979원</span><div class="bl">EPS (연결)</div></div>
+    <div class="bstat"><span class="bv">5.42%</span><div class="bl">운용자산이익률</div></div>
+  </div>
+  <div class="cg cg2">
+    <div class="card" style="border-top-color:var(--green);"><h3 style="color:var(--green);">① S&P A → A+ 상향 <span class="tag t3">NEW</span></h3><p>글로벌 최상위권 진입. 해외 계약 수주 경쟁력 구조적 강화</p></div>
+    <div class="card" style="border-top-color:var(--green);"><h3 style="color:var(--green);">② 자기주식 1,810만주 소각 <span class="tag t3">NEW</span></h3><p>176.7M주 9.3% 영구 감소 → EPS 구조적 상승</p></div>
+    <div class="card" style="border-top-color:var(--orange);"><h3 style="color:var(--orange);">③ 사옥 신축 3,620억 <span class="tag t3">NEW</span></h3><p>2026.05~2030.07 · 연 capex 약 900억 · 손익 직접 영향 없음</p></div>
+    <div class="card" style="border-top-color:var(--green);"><h3 style="color:var(--green);">④ 인도 IFSC지점 설립 <span class="tag t3">NEW</span></h3><p>2026.01 인도 국제금융서비스센터 진출. 해외 확장 가속</p></div>
+  </div>
+</section>
+
+<!-- S10 -->
+<section id="s10">
+  <div class="sec-label">Section 10 — 최종 결론</div>
+  <div class="sec-title">밸류에이션 & 투자 결론</div>
+  <div class="sc-row">
+    <div class="sc" style="border-color:var(--red);">
+      <div class="sc-h" style="background:var(--redBG);"><h3 style="color:var(--red);">BEAR</h3><span class="prob">확률 20%</span></div>
+      <div class="sc-b">
+        <p>대형 재해 연속 + 금리 급락</p>
+        <p>순이익: <strong>2,500억</strong> · EPS 1,415원</p>
+        <p style="font-size:.72rem;color:var(--textL);">적정 PER: 5배</p>
+        <div class="sc-price" style="background:var(--redBG);color:var(--red);">7,075원</div>
+      </div>
+    </div>
+    <div class="sc" style="border-color:var(--goldB);">
+      <div class="sc-h" style="background:var(--goldBG);"><h3 style="color:var(--gold);">BASE</h3><span class="prob">확률 55%</span></div>
+      <div class="sc-b">
+        <p>재해 1건 + 하드마켓 연장</p>
+        <p>순이익: <strong>4,200억</strong> · EPS 2,377원</p>
+        <p style="font-size:.72rem;color:var(--textL);">적정 PER: 8배</p>
+        <div class="sc-price" style="background:var(--goldBG);color:var(--gold);">19,016원</div>
+      </div>
+    </div>
+    <div class="sc" style="border-color:var(--green);">
+      <div class="sc-h" style="background:var(--greenBG);"><h3 style="color:var(--green);">BULL</h3><span class="prob">확률 25%</span></div>
+      <div class="sc-b">
+        <p>재해 無 + 이란 하드마켓</p>
+        <p>순이익: <strong>5,500억</strong> · EPS 3,113원</p>
+        <p style="font-size:.72rem;color:var(--textL);">적정 PER: 10배</p>
+        <div class="sc-price" style="background:var(--greenBG);color:var(--green);">31,130원</div>
+      </div>
+    </div>
+  </div>
+  <div class="insight"><p>확률가중 적정가: 0.20×7,075 + 0.55×19,016 + 0.25×31,130 = <strong>19,657원</strong> | 현재가(13,130원) 대비 <strong>+49.7% 상승여력</strong></p></div>
+  <div class="tw">
+    <table>
+      <thead><tr><th>비율 기준</th><th>상방</th><th>하방</th><th>비율</th><th>판정 (현재가 13,130원)</th></tr></thead>
+      <tbody>
+        <tr><td>Bull / Bear</td><td class="tn">+18,000원</td><td class="tn">-6,055원</td><td class="tn tu">2.97:1</td><td class="tu">✅ 충족 (기준 2.5:1)</td></tr>
+        <tr><td>Base / Bear</td><td class="tn">+5,886원</td><td class="tn">-6,055원</td><td class="tn td">0.97:1</td><td class="td">❌ 미충족</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p style="font-size:.75rem;color:var(--textL);margin-top:7px;">Base/Bear 2.5:1 역산 매수가 → <strong style="color:var(--navy)">10,487원 이하</strong></p>
+  <div class="div"></div>
+  <div class="vbox">
+    <div class="vm">INVESTMENT VERDICT</div>
+    <div class="vr">조건부 매수</div>
+    <div class="vd">우수한 기업이나 오늘 +7.62% 급등으로 비율 미충족<br>풀백 시 12,300원 이하 진입 전략 유효</div>
+  </div>
+  <div class="ag">
+    <div class="ai" style="border-top-color:var(--red);"><div class="az">STOP-LOSS</div><div class="ap" style="color:var(--red);">7,500원</div><div class="ar">BPS 0.36배</div></div>
+    <div class="ai" style="border-top-color:var(--green);"><div class="az">적극 매수</div><div class="ap" style="color:var(--green);">10,500원↓</div><div class="ar">Base/Bear 2.5:1+</div></div>
+    <div class="ai" style="border-top-color:var(--goldB);"><div class="az">조건부 매수</div><div class="ap" style="color:var(--gold);">12,300원↓</div><div class="ar">Bull/Bear 3:1+</div></div>
+    <div class="ai" style="border-top-color:var(--border);"><div class="az">현재가 (관망)</div><div class="ap">13,130원</div><div class="ar">비율 미충족</div></div>
+    <div class="ai" style="border-top-color:#3B82F6;"><div class="az">1차 익절</div><div class="ap" style="color:#1D4ED8;">19,000원</div><div class="ar">Base 적정가</div></div>
+    <div class="ai" style="border-top-color:var(--green);"><div class="az">2차 익절</div><div class="ap" style="color:var(--green);">28,000~31,000</div><div class="ar">Bull 실현 시</div></div>
+  </div>
+  <div class="div"></div>
+  <div class="pc">
+    <div>
+      <p style="font-size:.74rem;font-weight:700;color:var(--green);letter-spacing:2px;margin-bottom:8px;">✅ 매수 논리</p>
+      <ul class="cl">
+        <li style="border-left-color:var(--green);">Forward PER 6.3배 — 글로벌 동종 대비 40% 할인</li>
+        <li style="border-left-color:var(--green);">2026E 4,000억+ 역대 최대 이익 · 자기주식 소각 EPS↑</li>
+        <li style="border-left-color:var(--green);">국내 유일 전업 재보험사 · S&P A+ · 공동재보험 독점</li>
+        <li style="border-left-color:var(--green);">이란전쟁 → 하드마켓 연장 + 금리 동결 중장기 긍정</li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-size:.74rem;font-weight:700;color:var(--orange);letter-spacing:2px;margin-bottom:8px;">⚠️ 모니터링 포인트</p>
+      <ul class="cl">
+        <li style="border-left-color:var(--orange);">매 분기: 해외 보험비용 (자연재해 + 이란전쟁 클레임)</li>
+        <li style="border-left-color:var(--orange);">매년 1월: 글로벌 재보험 요율 갱신 결과</li>
+        <li style="border-left-color:var(--orange);">이란전쟁 종전 시: 소프트마켓 전환 속도 재평가</li>
+        <li style="border-left-color:var(--red);">2028~: 하드마켓 소프트화 전환 여부 경계</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p class="ft">코리안리 (003690) 투자 분석 보고서</p>
+  <p>분석 기준일: 2026년 5월 15일 | 데이터: DART 65기 1분기보고서 · 한국거래소 · 보험연구원(KIRI) · 딜로이트 · 한국은행</p>
+  <p style="margin-top:6px;font-size:.68rem;color:#475569;">본 자료는 투자 판단의 참고 목적으로 작성된 스터디 자료입니다. 모든 투자 결정과 책임은 투자자 본인에게 있습니다.</p>
+</footer>
+
+<!-- BACK TO TOP -->
+<button id="back-top" title="맨 위로">↑</button>
+
+<script>
+// Back to top
+const btn = document.getElementById('back-top');
+window.addEventListener('scroll', () => {
+  btn.classList.toggle('show', window.scrollY > 400);
+});
+btn.addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+
+// Active nav highlight
+const secs = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.topnav a');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#'+e.target.id));
+    }
+  });
+}, {rootMargin:'-30% 0px -60% 0px'});
+secs.forEach(s => observer.observe(s));
+
+// Price Chart
+window.addEventListener('load', () => {
+  const ctx = document.getElementById('priceChart');
+  if (!ctx || typeof Chart === 'undefined') return;
+  const labels = ['25.05','25.06','25.07','25.08','25.09','25.10','25.11','25.12','26.01','26.02','26.03','26.04','26.05'];
+  const prices = [7610,8100,8650,9200,9750,10840,11300,11700,11850,11500,11300,11800,13130];
+  const pointBG = prices.map((_,i) => {
+    if(i===0) return '#DC2626';
+    if(i===5) return '#1D4E89';
+    if(i===10) return '#9A6F00';
+    if(i===12) return '#166534';
+    return '#1A2744';
+  });
+  const pointR = prices.map((_,i) => [0,5,10,12].includes(i) ? 7 : 3);
+  new Chart(ctx, {
+    type:'line',
+    data:{
+      labels,
+      datasets:[
+        {label:'주가(원)',data:prices,borderColor:'#1A2744',borderWidth:2.5,backgroundColor:'rgba(26,39,68,.07)',fill:true,tension:.35,pointBackgroundColor:pointBG,pointBorderColor:'#fff',pointBorderWidth:2,pointRadius:pointR,pointHoverRadius:8},
+        {label:'52주 저점(7,610)',data:Array(13).fill(7610),borderColor:'#DC2626',borderWidth:1,borderDash:[5,4],pointRadius:0,fill:false},
+        {label:'확률가중 적정가(19,657)',data:Array(13).fill(19657),borderColor:'#C9A84C',borderWidth:1.5,borderDash:[6,4],pointRadius:0,fill:false},
+        {label:'Base 적정가(19,016)',data:Array(13).fill(19016),borderColor:'#3B82F6',borderWidth:1,borderDash:[4,4],pointRadius:0,fill:false},
+      ]
+    },
+    options:{
+      responsive:true,
+      interaction:{mode:'index',intersect:false},
+      plugins:{
+        legend:{position:'top',labels:{font:{family:'IBM Plex Mono',size:10},color:'#475569',usePointStyle:true,boxWidth:7,padding:14}},
+        tooltip:{callbacks:{label(c){return ` ${c.dataset.label}: ${c.parsed.y.toLocaleString()}원`}},bodyFont:{family:'IBM Plex Mono'},titleFont:{family:'Noto Sans KR'}}
+      },
+      scales:{
+        x:{grid:{color:'#EFF2F7'},ticks:{font:{family:'IBM Plex Mono',size:10},color:'#94A3B8'}},
+        y:{grid:{color:'#EFF2F7'},ticks:{font:{family:'IBM Plex Mono',size:10},color:'#94A3B8',callback:v=>v.toLocaleString()+'원'},min:6000,max:22000}
+      }
+    }
+  });
+});
+</script>
+</body>
+</html>
