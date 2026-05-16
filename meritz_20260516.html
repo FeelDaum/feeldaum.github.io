@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Meritz Financial Group (138040) — 2026.05.16</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.9/static/pretendard.min.css" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --card: #f7f8fa;
+  --card-alt: #f0f2f5;
+  --accent: #dc2626;
+  --accent2: #ea580c;
+  --green: #059669;
+  --yellow: #d97706;
+  --blue: #2563eb;
+  --text: #1a1a2e;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+
+.slide {
+  padding: 48px 40px; display: flex; flex-direction: column;
+  max-width: 1100px; margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+}
+.slide-num { font-size: 12px; color: var(--accent); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700; }
+h1 { font-size: 48px; font-weight: 900; line-height: 1.2; margin-bottom: 12px; color: #111; }
+h1 .acc { color: var(--accent); }
+h2 { font-size: 32px; font-weight: 800; margin-bottom: 24px; line-height: 1.3; color: #111; }
+h2 .acc { color: var(--accent); }
+h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; color: var(--blue); }
+.sub { font-size: 18px; color: var(--muted); margin-bottom: 40px; line-height: 1.6; }
+.tag { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; margin-right: 8px; margin-bottom: 6px; }
+.tag-red { background: #fef2f2; color: var(--accent); border: 1px solid #fecaca; }
+.tag-green { background: #ecfdf5; color: var(--green); border: 1px solid #a7f3d0; }
+.tag-blue { background: #eff6ff; color: var(--blue); border: 1px solid #bfdbfe; }
+.tag-yellow { background: #fffbeb; color: var(--yellow); border: 1px solid #fde68a; }
+
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+.card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  padding: 24px; transition: transform 0.2s;
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.card-label { font-size: 13px; color: var(--muted); margin-bottom: 6px; letter-spacing: 1px; }
+.card-value { font-size: 36px; font-weight: 900; color: #111; }
+.card-value.sm { font-size: 28px; }
+.card-sub { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.card-accent { border-left: 3px solid var(--accent); }
+.card-green { border-left: 3px solid var(--green); }
+
+table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+th { text-align: left; padding: 12px 16px; font-size: 13px; color: var(--muted); border-bottom: 2px solid var(--border); letter-spacing: 1px; text-transform: uppercase; font-weight: 600; }
+td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 15px; }
+tr:hover { background: rgba(0,0,0,0.015); }
+.td-green { color: var(--green); font-weight: 700; }
+.td-red { color: var(--accent); font-weight: 700; }
+.td-blue { color: var(--blue); font-weight: 700; }
+.td-bold { font-weight: 700; }
+
+.pillar-bar { display: flex; gap: 4px; margin: 4px 0; }
+.star { width: 20px; height: 20px; border-radius: 4px; }
+.star-on { background: var(--accent); }
+.star-off { background: #e5e7eb; }
+
+.quote-box {
+  background: #fef2f2; border-left: 4px solid var(--accent);
+  padding: 20px 24px; border-radius: 0 12px 12px 0; margin: 20px 0;
+  font-size: 18px; font-weight: 600; line-height: 1.6; color: #111;
+}
+.quote-box.blue { background: #eff6ff; border-left-color: var(--blue); }
+.quote-box.green { background: #ecfdf5; border-left-color: var(--green); }
+
+.scenario-row { display: grid; grid-template-columns: 100px 1fr 120px 100px 80px; align-items: center; padding: 16px 20px; border-radius: 12px; margin-bottom: 8px; }
+.scenario-bull { background: #ecfdf5; border: 1px solid #a7f3d0; }
+.scenario-base { background: #eff6ff; border: 1px solid #bfdbfe; }
+.scenario-bear { background: #fef2f2; border: 1px solid #fecaca; }
+
+.timeline { position: relative; padding-left: 30px; }
+.timeline::before { content: ''; position: absolute; left: 8px; top: 0; bottom: 0; width: 2px; background: var(--border); }
+.tl-item { position: relative; margin-bottom: 20px; }
+.tl-item::before { content: ''; position: absolute; left: -26px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--accent); border: 2px solid var(--bg); }
+.tl-date { font-size: 13px; color: var(--accent); font-weight: 700; }
+.tl-text { font-size: 15px; margin-top: 4px; color: var(--text); }
+
+.buy-signal { background: #ecfdf5; border: 2px solid var(--green); border-radius: 20px; padding: 32px; text-align: center; margin: 24px 0; }
+.buy-signal h2 { color: var(--green); margin-bottom: 12px; }
+
+.risk-bar { height: 8px; border-radius: 4px; background: #e5e7eb; margin: 6px 0; overflow: hidden; }
+.risk-fill { height: 100%; border-radius: 4px; }
+
+.footer-note { font-size: 12px; color: var(--muted); text-align: center; padding: 40px; border-top: 1px solid var(--border); }
+
+@media (max-width: 768px) {
+  .slide { padding: 40px 20px; }
+  h1 { font-size: 32px; }
+  h2 { font-size: 24px; }
+  .grid2, .grid3, .grid4 { grid-template-columns: 1fr; }
+  .scenario-row { grid-template-columns: 1fr; gap: 8px; }
+  .card-value { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: COVER -->
+<div class="slide" style="align-items: center; text-align: center; padding-top: 60px; padding-bottom: 60px;">
+  <div class="slide-num">Investment Analysis</div>
+  <h1 style="font-size: 56px;">메리츠금융지주<br><span class="acc">5-Pillar 투자분석</span></h1>
+  <p class="sub" style="max-width: 600px;">138040.KS | 2026.05.16 기준<br>Q1 2026 실적 + 컨콜 + 분기보고서 + 사업보고서 반영</p>
+  <div>
+    <span class="tag tag-red">105,800원</span>
+    <span class="tag tag-green">BUY</span>
+    <span class="tag tag-blue">21/25점</span>
+    <span class="tag tag-yellow">비대칭 2.93:1</span>
+  </div>
+</div>
+
+<!-- SLIDE 2: SNAPSHOT -->
+<div class="slide">
+  <div class="slide-num">01 — Snapshot</div>
+  <h2>투자 <span class="acc">한눈에 보기</span></h2>
+  <div class="grid4">
+    <div class="card card-accent"><div class="card-label">현재가</div><div class="card-value sm">105,800</div><div class="card-sub">52주 고점 대비 -29%</div></div>
+    <div class="card card-green"><div class="card-label">목표가 (Base)</div><div class="card-value sm">152,000</div><div class="card-sub">+43.7% 상승여력</div></div>
+    <div class="card"><div class="card-label">비대칭비율</div><div class="card-value sm">2.93:1</div><div class="card-sub">기준 2.5:1 충족 ✅</div></div>
+    <div class="card"><div class="card-label">5-Pillar</div><div class="card-value sm">21/25</div><div class="card-sub">전회 18점 → 21점</div></div>
+  </div>
+  <div style="height: 24px;"></div>
+  <div class="grid4">
+    <div class="card"><div class="card-label">PER (연환산)</div><div class="card-value sm" style="color:var(--green)">6.74x</div><div class="card-sub">업종 11.45x의 59%</div></div>
+    <div class="card"><div class="card-label">PBR / ROE</div><div class="card-value sm" style="color:var(--blue)">1.64x</div><div class="card-sub">ROE 25.4% 대비 저평가</div></div>
+    <div class="card"><div class="card-label">Fwd PER (블룸버그)</div><div class="card-value sm">6.9x</div><div class="card-sub">자사주 매입수익률 14.6%</div></div>
+    <div class="card"><div class="card-label">BPS</div><div class="card-value sm">64,348</div><div class="card-sub">전년 대비 +18%</div></div>
+  </div>
+</div>
+
+<!-- SLIDE 3: Q1 RESULTS -->
+<div class="slide">
+  <div class="slide-num">02 — Q1 2026 실적</div>
+  <h2>실적은 <span class="acc">역대급</span>, 주가는 <span class="acc">바닥 근처</span></h2>
+  <div class="grid2">
+    <div>
+      <h3>연결 실적</h3>
+      <table>
+        <tr><th>항목</th><th>Q1 2026</th><th>YoY</th></tr>
+        <tr><td>당기순이익</td><td class="td-bold">6,802억</td><td class="td-green">+9.6%</td></tr>
+        <tr><td>영업이익</td><td>8,548억</td><td class="td-green">+18.4%</td></tr>
+        <tr><td>ROE</td><td class="td-bold" style="color:var(--green)">25.4%</td><td class="td-green">+0.8%p</td></tr>
+        <tr><td>EPS</td><td>3,926원</td><td class="td-green">+17.1%</td></tr>
+        <tr><td>BPS</td><td>64,348원</td><td class="td-green">+18.0%</td></tr>
+        <tr><td>총자산</td><td>144.4조</td><td class="td-green">+6.6%</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>자회사별 (별도)</h3>
+      <table>
+        <tr><th>자회사</th><th>순이익</th><th>YoY</th></tr>
+        <tr><td>메리츠화재</td><td>4,661억</td><td class="td-green">+0.8%</td></tr>
+        <tr><td>메리츠증권</td><td class="td-bold">3,004억</td><td class="td-green">+30.2%</td></tr>
+        <tr><td>메리츠캐피탈</td><td>470억</td><td class="td-green">+66.0%</td></tr>
+      </table>
+      <div style="margin-top: 16px;">
+        <h3>이익 기여도 변화</h3>
+        <p style="font-size:15px; color:var(--muted);">보험 70%(2024) → <strong style="color:var(--text)">57%(Q1 2026)</strong><br>증권 25%(2024) → <strong style="color:var(--accent)">37%(Q1 2026)</strong><br>→ 이익 다변화 구조적 진전</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 4: GAME CHANGER -->
+<div class="slide">
+  <div class="slide-num">03 — Game Changer</div>
+  <h2>최대 우려였던 <span class="acc">자본적정성</span>, 한 분기만에 해소</h2>
+  <div class="quote-box">이중레버리지 126.8% → 112.1%로 급감. 금융지주사 평균(116%)을 하회하며 업계 최고 수준으로 개선.</div>
+  <div class="grid3">
+    <div class="card card-green">
+      <div class="card-label">이중레버리지</div>
+      <div class="card-value" style="color:var(--green)">112.1%</div>
+      <div class="card-sub">FY2025: 126.83% → ▼14.7%p</div>
+    </div>
+    <div class="card card-green">
+      <div class="card-label">부채비율</div>
+      <div class="card-value" style="color:var(--green)">49.3%</div>
+      <div class="card-sub">FY2025: 54.0% → ▼4.7%p</div>
+    </div>
+    <div class="card card-green">
+      <div class="card-label">충당금</div>
+      <div class="card-value" style="color:var(--green)">-116억</div>
+      <div class="card-sub">환입 전환 (전년 3,403억 적립)</div>
+    </div>
+  </div>
+  <div style="margin-top: 24px;">
+    <h3>이중레버리지 추이</h3>
+    <table>
+      <tr><th>2022</th><th>2023</th><th>2024</th><th>2025</th><th>Q1 2026</th></tr>
+      <tr><td>110.7%</td><td>122.4%</td><td>117.7%</td><td class="td-red">126.8%</td><td class="td-green">112.1%</td></tr>
+    </table>
+    <p style="font-size:14px; color:var(--muted); margin-top: 8px;">개선 원인: 별도 자본 34,497억→39,037억(+13.2%). 자회사 이익 유보 + OCI 개선이 지주 자본을 레벨업</p>
+  </div>
+</div>
+
+<!-- SLIDE: 이중레버리지 설명 -->
+<div class="slide">
+  <div class="slide-num">04 — Key Concept</div>
+  <h2>이중레버리지란? <span class="acc">왜 우려했나?</span></h2>
+
+  <div class="grid2">
+    <div>
+      <h3>개념</h3>
+      <div class="card" style="margin-bottom:16px;">
+        <p style="font-size:16px; line-height:1.9;">
+          <strong style="font-size:18px;">이중레버리지 = 자회사 출자액 ÷ 지주 자기자본 × 100%</strong><br><br>
+          쉽게 말하면 <strong>"빌린 돈으로 자회사에 투자한 정도"</strong><br><br>
+          <strong style="color:var(--green)">100%</strong> → 자기 돈으로만 투자 (건전)<br>
+          <strong style="color:var(--yellow)">100% 초과</strong> → 빌려서 투자 (레버리지)<br>
+          <strong style="color:var(--accent)">높을수록 위험</strong> → 자회사 손실 시 증폭
+        </p>
+      </div>
+      <h3>부동산 투자에 비유</h3>
+      <div class="card">
+        <p style="font-size:15px; line-height:1.9; color: var(--muted);">
+          <strong style="color:var(--text)">112% (지금)</strong><br>내 돈 10억 + 대출 1.2억 = 11.2억 건물<br><br>
+          <strong style="color:var(--accent)">127% (전회 우려)</strong><br>내 돈 10억 + 대출 2.7억 = 12.7억 건물<br><br>
+          건물이 잘 나가면 → 수익률 극대화 (ROE 25%)<br>
+          건물에 문제 생기면 → 손실도 증폭
+        </p>
+      </div>
+    </div>
+    <div>
+      <h3>왜 우려했나?</h3>
+      <div class="card" style="margin-bottom: 16px;">
+        <p style="font-size:15px; line-height:1.9;">
+          사업보고서(3/18)에서 확인된 수치가 충격적이었음:<br><br>
+          <strong style="color:var(--accent)">이중레버리지 126.83%</strong><br>
+          → 금융지주 평균(~116%) 대비 +11%p 초과<br>
+          → 금감원 권고 상한(~130%)까지 3%p밖에 여유 없음<br><br>
+          <strong style="color:var(--accent)">3년 추세도 악화 일로</strong><br>
+          2023: 122% → 2024: 118% → 2025: <strong>127%</strong><br><br>
+          <strong style="color:var(--accent)">자사주 소각의 역설</strong><br>
+          주주환원(자사주 소각)을 할수록 자기자본이 줄어 이중레버리지가 올라가는 구조적 트레이드오프 존재
+        </p>
+      </div>
+      <div class="quote-box green">
+        Q1에서 112.1%로 급감하며 우려 해소.<br>
+        자회사 이익 유보로 자본이 +13.2% 증가한 것이 핵심 원인.
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <h3>동종업계 비교</h3>
+    <table>
+      <tr><th>금융지주</th><th>이중레버리지</th><th>평가</th></tr>
+      <tr><td>KB금융</td><td>~115%</td><td>양호</td></tr>
+      <tr><td>신한금융</td><td>~113%</td><td>양호</td></tr>
+      <tr><td>하나금융</td><td>~118%</td><td>보통</td></tr>
+      <tr><td>금융지주 평균</td><td class="td-bold">~116%</td><td>기준선</td></tr>
+      <tr><td class="td-bold">메리츠 (FY2025)</td><td class="td-red">126.83%</td><td class="td-red">⚠️ 우려</td></tr>
+      <tr><td class="td-bold">메리츠 (Q1 2026)</td><td class="td-green">112.1%</td><td class="td-green">✅ 업계 최고</td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- SLIDE: Q1 컨콜 요약 -->
+<div class="slide">
+  <div class="slide-num">05 — Q1 Earnings Call</div>
+  <h2>Q1 컨콜 <span class="acc">핵심 요약</span> (5/14)</h2>
+
+  <div class="grid2">
+    <div>
+      <h3>🔵 실적 & 전략</h3>
+      <div class="card" style="margin-bottom: 12px;">
+        <div class="card-label">중동 리스크 대비</div>
+        <p style="font-size:14px; line-height:1.7; margin-top:8px;">환헤지 오버헤지 제거, 국채 풋옵션 매입 완료. PF 중단 사업장 0건. 호르무즈 선박보험 16건 전부 재보험, 건당 200만불 이하 제한. "최악의 상황에서도 영향 미미."</p>
+      </div>
+      <div class="card" style="margin-bottom: 12px;">
+        <div class="card-label">메리츠화재 — GA 시장 지배력 확대</div>
+        <p style="font-size:14px; line-height:1.7; margin-top:8px;">GA 장기인보험 신계약 <strong>+30% YoY 성장</strong>. "출혈경쟁에 동참하지 않고 인내한 결과가 매출과 수익성의 동반 성장으로 증명." 손해율 우위는 "일시적 현상이 아닌 구조적 차이."</p>
+      </div>
+      <div class="card" style="margin-bottom: 12px;">
+        <div class="card-label">메리츠증권 — 전 부문 호조</div>
+        <p style="font-size:14px; line-height:1.7; margin-top:8px;">별도 순이익 3,004억(+30.2%). 주식 포지션 확대 성과 가시화. AI본부 신설(2025.4), Equity 운용 수익 증가. 해외주식 M/S 1-2위, 국내주식 약정액 14배 성장.</p>
+      </div>
+    </div>
+    <div>
+      <h3>🔴 리스크 & 주주환원</h3>
+      <div class="card" style="margin-bottom: 12px;">
+        <div class="card-label">K-ICS & 주주환원</div>
+        <p style="font-size:14px; line-height:1.7; margin-top:8px;">K-ICS 240.7%(잠정). 적정 유지선 <strong>180% 이상</strong>(위기 시에도 최소 150% 방어). "금리 상승·신계약 증가로 인한 K-ICS 하락 위험 없으며, <strong>주주환원정책에도 영향 없음.</strong>"</p>
+      </div>
+      <div class="card" style="margin-bottom: 12px;">
+        <div class="card-label">2분기 규제 변경 영향</div>
+        <p style="font-size:14px; line-height:1.7; margin-top:8px;">손해율·사업비 가이드라인 + 간편보험 손해율 가정 → 2분기 일괄 반영 예정. 다만 "이미 신규 담보 손해율 90%+, 갱신 담보 100%로 설정해와서 <strong>재무적 영향 거의 없을 것.</strong>"</p>
+      </div>
+      <div class="card" style="border-left: 3px solid var(--accent);">
+        <div class="card-label">⚠️ 컨콜에서 언급 안 된 것</div>
+        <p style="font-size:14px; line-height:1.7; margin-top:8px;">
+          <strong>국세청 세무조사</strong> — 미언급<br>
+          <strong>검찰 수사 2건</strong> — 미언급<br>
+          <strong>홈플러스 DIP</strong> — 미언급 (충당금 2,376억 공시만)<br>
+          <strong>발행어음 인가</strong> — 미언급<br><br>
+          <span style="color:var(--muted);">→ 규제·사법 리스크에 대해 일체 침묵. 법률적으로 당연하나 시장 불안 해소는 못함.</span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE: 리스크 매트릭스 -->
+<div class="slide">
+  <div class="slide-num">06 — Risk Matrix</div>
+  <h2>리스크 <span class="acc">매트릭스</span></h2>
+
+  <table>
+    <tr>
+      <th style="width:22%;">리스크</th>
+      <th style="width:10%;">영향도</th>
+      <th style="width:10%;">발생확률</th>
+      <th style="width:12%;">상태</th>
+      <th style="width:46%;">분석 & 대응</th>
+    </tr>
+    <tr style="background:#fef2f2;">
+      <td class="td-bold">국세청 특별세무조사</td>
+      <td>★★★☆☆</td>
+      <td class="td-bold">확정</td>
+      <td><span class="tag tag-red" style="font-size:11px;">진행중</span></td>
+      <td style="font-size:13px;">서울청 조사4국(5/11). PF 수수료·SPC 자금 흐름 점검. 하나금융도 동시 조사 → 메리츠만의 문제 아닌 금융권 전반 압박. 추징금 규모가 핵심 변수.</td>
+    </tr>
+    <tr style="background:#fef2f2;">
+      <td class="td-bold">검찰 수사 ① 합병 내부거래</td>
+      <td>★★★☆☆</td>
+      <td>中</td>
+      <td><span class="tag tag-red" style="font-size:11px;">진행중</span></td>
+      <td style="font-size:13px;">전직 임원 대상. 2022년 합병 발표 전 미공개정보 이용 혐의. 현직 경영진 확대 여부가 관건. 압수수색 3회(2025.9, 2026.1, 2026.1).</td>
+    </tr>
+    <tr style="background:#fef2f2;">
+      <td class="td-bold">검찰 수사 ② 이화전기 BW</td>
+      <td>★★★★☆</td>
+      <td>中</td>
+      <td><span class="tag tag-red" style="font-size:11px;">진행중</span></td>
+      <td style="font-size:13px;">BW 무담보 허위 공시 + 거래정지 전 선행매도 혐의. 발행어음 인가 차단의 직접 원인. 수사 종결까지 인가 불가.</td>
+    </tr>
+    <tr style="background:#fffbeb;">
+      <td class="td-bold">홈플러스 회생</td>
+      <td>★★☆☆☆</td>
+      <td>低~中</td>
+      <td><span class="tag tag-yellow" style="font-size:11px;">진전중</span></td>
+      <td style="font-size:13px;">익스포저 1.17조, 충당금 2,376억 적립. 담보 4.1x. 기대손실 ~550억(순이익의 2%). 7/3 가결기한. 익스프레스 매각 완료(1,206억).</td>
+    </tr>
+    <tr style="background:#eff6ff;">
+      <td class="td-bold">발행어음 인가 보류</td>
+      <td>★★☆☆☆</td>
+      <td class="td-bold">확정</td>
+      <td><span class="tag tag-blue" style="font-size:11px;">보류</span></td>
+      <td style="font-size:13px;">수사 종결 전까지 무기한 보류. 삼성증권은 4/15 인가. 인가 시 연 1,000억+ 추가 수익 기대. 미인가가 기존 사업 영향 없음.</td>
+    </tr>
+    <tr>
+      <td class="td-bold">중동 지정학 리스크</td>
+      <td>★☆☆☆☆</td>
+      <td>低</td>
+      <td><span class="tag tag-green" style="font-size:11px;">헤지완료</span></td>
+      <td style="font-size:13px;">환헤지·국채풋옵션 구축. PF 중단 0건. 호르무즈 선박보험 16건 재보험, 건당 200만불 이하. "최악의 상황에서도 영향 미미."</td>
+    </tr>
+    <tr>
+      <td class="td-bold">가치파괴적 M&A</td>
+      <td>★★★★☆</td>
+      <td>低</td>
+      <td><span class="tag tag-green" style="font-size:11px;">낮음</span></td>
+      <td style="font-size:13px;">주주환원정책 예외조항 3개 존재. 다만 과거 M&A 3건 철회 전례(두산캐피탈, 아주캐피탈, 삼화저축). 딜 규율 신뢰.</td>
+    </tr>
+    <tr>
+      <td class="td-bold">ROE 하락 추세</td>
+      <td>★★☆☆☆</td>
+      <td>中</td>
+      <td><span class="tag tag-blue" style="font-size:11px;">모니터링</span></td>
+      <td style="font-size:13px;">FnGuide 컨센서스: 22.3%(2026E)→20.3%(2027E)→20.0%(2028E). 점진 하락이나 20%+ 유지. Q1에서 25.4%로 오히려 반등.</td>
+    </tr>
+  </table>
+
+  <div class="quote-box green" style="margin-top: 20px;">
+    종합 판단: 실질적 손실을 야기하는 리스크(홈플러스, 중동)는 이미 헤지·충당금으로 관리 중.<br>
+    주가를 누르는 리스크(세무조사, 수사)는 센티먼트 요인으로, 해소 시 리레이팅 촉매.
+  </div>
+</div>
+
+<!-- SLIDE 7: 5 PILLARS -->
+<div class="slide">
+  <div class="slide-num">07 — 5-Pillar Framework</div>
+  <h2>5-Pillar <span class="acc">종합 평가: 21/25</span></h2>
+  <table>
+    <tr><th>Pillar</th><th>점수</th><th>핵심 근거</th></tr>
+    <tr>
+      <td class="td-bold">① 하방 제한</td>
+      <td><div class="pillar-bar"><div class="star star-on"></div><div class="star star-on"></div><div class="star star-on"></div><div class="star star-on"></div><div class="star star-off"></div></div></td>
+      <td>이중레버리지 112%, 충당금 환입, 부동산 29.6조(축소), 자사주 7천억 하방 지지</td>
+    </tr>
+    <tr>
+      <td class="td-bold">② 상방 카탈리스트</td>
+      <td><div class="pillar-bar"><div class="star star-on"></div><div class="star star-on"></div><div class="star star-on"></div><div class="star star-on"></div><div class="star star-off"></div></div></td>
+      <td>순이익 +9.6%, 증권 +30.2%, 영업이익 반등 +18.4%, 컨센서스 151,714원</td>
+    </tr>
+    <tr>
+      <td class="td-bold">③ 해자</td>
+      <td><div class="pillar-bar"><div class="star star-on"></div><div class="star star-on"></div><div class="star star-on"></div><div class="star star-on"></div><div class="star star-off"></div></div></td>
+      <td>ROE 25.4%(업계 1위), GA M/S 확대(+30% YoY), 손해율 구조적 우위, 단일상장</td>
+    </tr>
+    <tr>
+      <td class="td-bold">④ 대리인 리스크</td>
+      <td><div class="pillar-bar"><div class="star star-on"></div><div class="star star-on"></div><div class="star star-on"></div><div class="star star-on"></div><div class="star star-off"></div></div></td>
+      <td>자사주 매입수익률 14.6%>COE 10%, 누적 TSR 169.6%, K-ICS 240.7%</td>
+    </tr>
+    <tr>
+      <td class="td-bold">⑤ 밸류에이션</td>
+      <td><div class="pillar-bar"><div class="star star-on"></div><div class="star star-on"></div><div class="star star-on"></div><div class="star star-on"></div><div class="star star-on"></div></div></td>
+      <td>PER 6.7x(업종의 59%), PBR 1.64x, PBR/ROE 6.5%(확실한 저평가)</td>
+    </tr>
+  </table>
+</div>
+
+<!-- SLIDE 6: PILLAR DEEP DIVE 1-2 -->
+<div class="slide">
+  <div class="slide-num">08 — Pillar Deep Dive</div>
+  <h2>① 하방 제한 & ② 상방 카탈리스트</h2>
+  <div class="grid2">
+    <div>
+      <h3>① 하방 제한 (4/5)</h3>
+      <div class="card">
+        <p style="font-size:15px; line-height:1.8;">
+          <strong style="color:var(--green)">✅ 3년 연속 순이익 2조+</strong> — 분기 6,800억 안정 시현<br>
+          <strong style="color:var(--green)">✅ 이중레버리지 112.1%</strong> — 업계 평균(116%) 하회<br>
+          <strong style="color:var(--green)">✅ 자사주 매일 균등 매입</strong> — 7,000억 신탁 진행 중<br>
+          <strong style="color:var(--green)">✅ 부동산 익스포저 축소</strong> — 31.2조→29.6조, LTV 47%<br>
+          <strong style="color:var(--green)">✅ K-ICS 240.7%</strong> — 내부 최소선 180% 대비 충분<br>
+          <strong style="color:var(--yellow)">⚠️ 홈플러스 1.17조 묶임</strong> — 충당금 2,376억 적립<br>
+          <strong style="color:var(--yellow)">⚠️ 세무조사·수사</strong> — 센티먼트 부담
+        </p>
+      </div>
+    </div>
+    <div>
+      <h3>② 상방 카탈리스트 (4/5)</h3>
+      <div class="card">
+        <p style="font-size:15px; line-height:1.8;">
+          <strong style="color:var(--green)">✅ 영업이익 반등</strong> — FY2025 -9.9% → Q1 +18.4%<br>
+          <strong style="color:var(--green)">✅ 증권 이익 폭발</strong> — +30.2%, 자산운용+리테일 동반<br>
+          <strong style="color:var(--green)">✅ Forward EPS 14,475원</strong> — 이익 성장 궤도<br>
+          <strong style="color:var(--green)">✅ 주주환원 확고</strong> — 50%+, 7,000억 자사주 집행 중<br>
+          <strong style="color:var(--blue)">🔜 홈플러스 해결</strong> — 담보 4.1x, 회생 진전 중<br>
+          <strong style="color:var(--blue)">🔜 검찰 수사 종결</strong> — 해소 시 리레이팅<br>
+          <strong style="color:var(--yellow)">⚠️ 발행어음 인가</strong> — 사실상 무기한 보류
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 7: PILLAR 3-4-5 -->
+<div class="slide">
+  <div class="slide-num">09 — Pillar Deep Dive</div>
+  <h2>③ 해자 & ④ 대리인 & ⑤ 밸류에이션</h2>
+  <div class="grid3">
+    <div class="card">
+      <h3>③ 해자 (4/5)</h3>
+      <p style="font-size:14px; line-height:1.8; color:var(--muted);">
+        <strong style="color:var(--text)">메리츠화재 ROE 29%</strong><br>보험 언더라이팅 업계 최고<br><br>
+        <strong style="color:var(--text)">GA 장기인보험 +30%</strong><br>출혈경쟁 안 한 결과가 M/S로<br><br>
+        <strong style="color:var(--text)">단일상장 구조</strong><br>자본배분 효율 극대화<br><br>
+        <strong style="color:var(--text)">증권 IB 1-2위</strong><br>구조화금융 딜소싱 네트워크
+      </p>
+    </div>
+    <div class="card">
+      <h3>④ 대리인 (4/5)</h3>
+      <p style="font-size:14px; line-height:1.8; color:var(--muted);">
+        <strong style="color:var(--text)">조정호 회장 철학</strong><br>"1주 가치 = 소수주주 1주 가치"<br><br>
+        <strong style="color:var(--text)">누적 TSR 169.6%</strong><br>23년 정책 이후 3년간<br><br>
+        <strong style="color:var(--text)">M&A 3건 철회 전례</strong><br>조건 불리 시 과감히 포기<br><br>
+        <strong style="color:var(--yellow)">⚠️ M&A 예외조항 3개</strong><br>환원 중단 가능성 열려있음
+      </p>
+    </div>
+    <div class="card">
+      <h3>⑤ 밸류에이션 (5/5)</h3>
+      <table style="font-size:13px;">
+        <tr><th></th><th>메리츠</th><th>업종</th></tr>
+        <tr><td>PER</td><td class="td-green">6.7x</td><td>11.5x</td></tr>
+        <tr><td>Fwd PER</td><td class="td-green">6.9x</td><td>11.5x</td></tr>
+        <tr><td>PBR</td><td>1.64x</td><td>-</td></tr>
+        <tr><td>ROE</td><td class="td-green">25.4%</td><td>~12%</td></tr>
+        <tr><td>PBR/ROE</td><td class="td-green">6.5%</td><td>~8%</td></tr>
+      </table>
+      <p style="font-size:13px; color:var(--muted); margin-top:8px;">ROE 25% 기업이 PER 6.7x<br>→ 규제 리스크 프리미엄</p>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 8: HOMEPLUS -->
+<div class="slide">
+  <div class="slide-num">10 — 핵심 이슈: 홈플러스</div>
+  <h2>홈플러스 — <span class="acc">"돈을 잃는 딜"이 아니라 "돈이 묶이는 딜"</span></h2>
+  <div class="grid2">
+    <div>
+      <table>
+        <tr><th>항목</th><th>수치</th></tr>
+        <tr><td>총 익스포저</td><td class="td-bold">11,652억</td></tr>
+        <tr><td>충당금/준비금</td><td>2,376억 (충당률 20.4%)</td></tr>
+        <tr><td>담보</td><td>68개 점포 1순위 신탁</td></tr>
+        <tr><td>담보 평가액</td><td class="td-green">~4.8조원</td></tr>
+        <tr><td>담보 커버리지</td><td class="td-green">~4.1x</td></tr>
+        <tr><td>회생 기한</td><td>7월 3일 (최장 9월)</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>확률가중 기대 손실</h3>
+      <table>
+        <tr><th>시나리오</th><th>확률</th><th>손실</th></tr>
+        <tr><td>회생 성공, 전액 회수</td><td>45%</td><td class="td-green">0원</td></tr>
+        <tr><td>조건 변경, 부분 손실</td><td>30%</td><td>~1,000억</td></tr>
+        <tr><td>청산, 담보 실행</td><td>20%</td><td>~500억</td></tr>
+        <tr><td>담보가치 훼손</td><td>5%</td><td class="td-red">~3,000억</td></tr>
+        <tr><td class="td-bold">기대 손실</td><td></td><td class="td-bold">~550억</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="quote-box blue">시장은 홈플러스로 시총 ~5.9조를 할인. 실제 기대 손실은 ~550억(순이익의 2%). 75~90배 과대 반영.</div>
+</div>
+
+<!-- SLIDE 9: RISKS -->
+<div class="slide">
+  <div class="slide-num">11 — 리스크 현황</div>
+  <h2>4중 악재 — <span class="acc">"안개"</span>의 실체</h2>
+  <div class="card" style="margin-bottom:12px;">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div><span class="tag tag-red">NEW</span> <strong>국세청 특별세무조사</strong> (5/11)</div>
+      <span style="color:var(--muted); font-size:13px;">영향: 中</span>
+    </div>
+    <p style="font-size:14px; color:var(--muted); margin-top:8px;">서울청 조사4국 투입. PF 수수료·SPC 자금 흐름 점검. 하나금융도 동시 → 금융권 전반 압박.</p>
+    <div class="risk-bar"><div class="risk-fill" style="width:50%; background:var(--yellow);"></div></div>
+  </div>
+  <div class="card" style="margin-bottom:12px;">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div><strong>검찰 수사 2건</strong> (합병 내부거래 + 이화전기 BW)</div>
+      <span style="color:var(--muted); font-size:13px;">영향: 中</span>
+    </div>
+    <p style="font-size:14px; color:var(--muted); margin-top:8px;">발행어음 인가 차단의 직접 원인. 수사 종결 시점 불확실.</p>
+    <div class="risk-bar"><div class="risk-fill" style="width:55%; background:var(--yellow);"></div></div>
+  </div>
+  <div class="card" style="margin-bottom:12px;">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div><strong>홈플러스 회생</strong></div>
+      <span style="color:var(--muted); font-size:13px;">영향: 低~中</span>
+    </div>
+    <p style="font-size:14px; color:var(--muted); margin-top:8px;">담보 4.1x로 원금 손실 극히 제한적. 기대 손실 ~550억(순이익의 2%).</p>
+    <div class="risk-bar"><div class="risk-fill" style="width:35%; background:var(--blue);"></div></div>
+  </div>
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <div><strong>발행어음 인가 보류</strong></div>
+      <span style="color:var(--muted); font-size:13px;">영향: 低</span>
+    </div>
+    <p style="font-size:14px; color:var(--muted); margin-top:8px;">수사 전 무기한 보류. 미인가가 기존 사업에 미치는 영향 없음. 인가 시 연 1,000억+ 추가 수익.</p>
+    <div class="risk-bar"><div class="risk-fill" style="width:25%; background:var(--blue);"></div></div>
+  </div>
+  <div class="quote-box green">핵심 판단: 호실적은 구조적(ROE 25.4%, 이중레버리지 112%), 악재는 일시적(세무조사, 수사).</div>
+</div>
+
+<!-- SLIDE 10: SCENARIOS -->
+<div class="slide">
+  <div class="slide-num">12 — 시나리오 분석</div>
+  <h2>시나리오별 <span class="acc">적정가격</span> (105,800원 기준)</h2>
+  <div class="scenario-row scenario-bull">
+    <div style="font-weight:800; color:var(--green);">Bull</div>
+    <div style="font-size:14px;">수사 종결 + 세무 경미 + 홈플러스 해결 + 발행어음 인가</div>
+    <div style="font-weight:800; font-size:20px;">170,000원</div>
+    <div style="color:var(--green); font-weight:700;">+60.7%</div>
+    <div style="color:var(--muted);">20%</div>
+  </div>
+  <div class="scenario-row scenario-base">
+    <div style="font-weight:800; color:var(--blue);">Base</div>
+    <div style="font-size:14px;">Fwd EPS 14,475 × 10.5x, 홈플러스 담보 회수, 환원 지속</div>
+    <div style="font-weight:800; font-size:20px;">152,000원</div>
+    <div style="color:var(--blue); font-weight:700;">+43.7%</div>
+    <div style="color:var(--muted);">50%</div>
+  </div>
+  <div class="scenario-row scenario-bear">
+    <div style="font-weight:800; color:var(--accent);">Bear</div>
+    <div style="font-size:14px;">세무 대형 추징 + 수사 확대 + 홈플러스 손실 + ROE 급락</div>
+    <div style="font-weight:800; font-size:20px;">90,000원</div>
+    <div style="color:var(--accent); font-weight:700;">-14.9%</div>
+    <div style="color:var(--muted);">30%</div>
+  </div>
+  <div style="height: 24px;"></div>
+  <div class="grid3">
+    <div class="card" style="text-align:center;"><div class="card-label">확률가중 적정가</div><div class="card-value" style="color:var(--blue);">137,000</div><div class="card-sub">+29.5%</div></div>
+    <div class="card" style="text-align:center;"><div class="card-label">비대칭 보상비율</div><div class="card-value" style="color:var(--green);">2.93:1</div><div class="card-sub">기준 2.5:1 ✅ 충족</div></div>
+    <div class="card" style="text-align:center;"><div class="card-label">산출 방식</div><div class="card-value sm">Base/Bear</div><div class="card-sub">43.7% ÷ 14.9% = 2.93</div></div>
+  </div>
+</div>
+
+<!-- SLIDE 11: STRATEGY -->
+<div class="slide">
+  <div class="slide-num">13 — 매매 전략</div>
+  <h2>매수 / 매도 <span class="acc">전략</span></h2>
+  <div class="buy-signal">
+    <h2>투자의견: BUY</h2>
+    <p style="font-size:18px; color:var(--text);">105,800원 | 목표 152,000원 (+43.7%) | 손절 88,000원</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <h3>매수 전략</h3>
+      <table>
+        <tr><th>단계</th><th>가격</th><th>비중</th></tr>
+        <tr><td class="td-green">1차 (현재)</td><td>105,800원</td><td class="td-bold">40%</td></tr>
+        <tr><td>2차</td><td>100,000~105,000원</td><td>30%</td></tr>
+        <tr><td>3차</td><td>110,000~115,000원</td><td>30%</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>매도 전략</h3>
+      <table>
+        <tr><th>단계</th><th>가격</th><th>비중</th></tr>
+        <tr><td class="td-blue">1차 익절</td><td>145,000~155,000원</td><td>50%</td></tr>
+        <tr><td>2차 익절</td><td>165,000원+</td><td>잔여 전량</td></tr>
+        <tr><td class="td-red">손절</td><td>88,000원 이하</td><td>전량</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 12: TIMELINE -->
+<div class="slide">
+  <div class="slide-num">14 — 분석 히스토리</div>
+  <h2>3개월간의 <span class="acc">분석 여정</span></h2>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-date">3/4 — 112,500원</div><div class="tl-text">최초 분석. 5-Pillar 22/25, Strong Buy. 검찰 수사 급락 후 회복 구간.</div></div>
+    <div class="tl-item"><div class="tl-date">3/20 — 사업보고서 반영</div><div class="tl-text">이중레버리지 126.83%, BPS 58,912원 확인. 22→19점, Strong Buy→HOLD 하향.</div></div>
+    <div class="tl-item"><div class="tl-date">4/25 — 114,500원</div><div class="tl-text">홈플러스 DIP 참여 검토. FnGuide Forward 데이터 확인. 비대칭 1.82:1(미달), HOLD.</div></div>
+    <div class="tl-item"><div class="tl-date">5/11 — 세무조사 착수</div><div class="tl-text">서울청 조사4국 급습. 4중 악재 완성. 107,500원 하락.</div></div>
+    <div class="tl-item"><div class="tl-date">5/13 — 107,500원</div><div class="tl-text">4중 악재 반영 18/25, 비대칭 1.45:1. HOLD.</div></div>
+    <div class="tl-item" style="border-left: 2px solid var(--green);"><div class="tl-date" style="color:var(--green);">5/14 — Q1 실적 발표 ⭐</div><div class="tl-text"><strong>이중레버리지 112.1%</strong>, ROE 25.4%, 순이익 +9.6%. 게임체인저. 18→21점.</div></div>
+    <div class="tl-item" style="border-left: 2px solid var(--green);"><div class="tl-date" style="color:var(--green);">5/15 — 105,800원 (현재)</div><div class="tl-text"><strong>비대칭 2.93:1 (기준 충족)</strong>. HOLD→BUY 전환. 호실적 + 세무조사 = 최적 진입점.</div></div>
+  </div>
+</div>
+
+<!-- SLIDE 13: CONCLUSION -->
+<div class="slide" style="text-align: center; padding-top: 60px; padding-bottom: 60px;">
+  <div class="slide-num">15 — Conclusion</div>
+  <h1 style="font-size: 40px; margin-bottom: 32px;">
+    실적은 <span class="acc">구조적</span>으로 좋아지고<br>
+    악재는 <span class="acc">일시적</span>으로 눌리고 있다
+  </h1>
+  <div class="grid3" style="max-width: 800px; margin: 0 auto;">
+    <div class="card" style="text-align:center;"><div class="card-label">현재가</div><div class="card-value sm" style="color:var(--accent)">105,800</div></div>
+    <div class="card" style="text-align:center;"><div class="card-label">목표가</div><div class="card-value sm" style="color:var(--green)">152,000</div></div>
+    <div class="card" style="text-align:center;"><div class="card-label">비대칭비율</div><div class="card-value sm" style="color:var(--blue)">2.93:1</div></div>
+  </div>
+  <p style="margin-top: 32px; font-size: 16px; color: var(--muted); max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.8;">
+    ROE 25.4%인 기업이 PER 6.7배에 거래되는 이유는 세무조사·수사·홈플러스라는 규제 안개 때문이다.<br>
+    이 안개가 걷히면 컨센서스 152,000원으로의 리레이팅이 시작된다.<br>
+    Q1 실적이 증명한 펀더멘탈 개선은 구조적이고, 규제 악재는 일시적이다.
+  </p>
+</div>
+
+<div class="footer-note">
+  본 자료는 투자 스터디 목적으로 작성되었으며, 특정 금융상품의 매수/매도를 권유하지 않습니다.<br>
+  투자 판단과 그에 따른 손실은 전적으로 투자자 본인에게 귀속됩니다. | 2026.05.16
+</div>
+
+</body>
+</html>
