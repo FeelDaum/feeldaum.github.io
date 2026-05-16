@@ -1,1 +1,427 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>KSS해운 (044450) — 5-Pillar 투자분석 | 2026.05.16</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.9/static/pretendard.min.css" rel="stylesheet">
+<style>
+:root {
+  --bg: #ffffff;
+  --card: #f7f8fa;
+  --card-alt: #f0f2f5;
+  --accent: #0e4d92;
+  --accent2: #1a6fc4;
+  --green: #059669;
+  --yellow: #d97706;
+  --red: #dc2626;
+  --blue: #2563eb;
+  --text: #1a1a2e;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Pretendard', -apple-system, sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
 
+.slide {
+  padding: 48px 40px; display: flex; flex-direction: column;
+  max-width: 1100px; margin: 0 auto;
+  border-bottom: 1px solid var(--border);
+}
+.slide-num { font-size: 12px; color: var(--accent); letter-spacing: 4px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700; }
+h1 { font-size: 48px; font-weight: 900; line-height: 1.2; margin-bottom: 12px; color: #111; }
+h1 .acc { color: var(--accent); }
+h2 { font-size: 32px; font-weight: 800; margin-bottom: 24px; line-height: 1.3; color: #111; }
+h2 .acc { color: var(--accent); }
+h2 .red { color: var(--red); }
+h3 { font-size: 20px; font-weight: 700; margin-bottom: 12px; color: var(--blue); }
+.sub { font-size: 18px; color: var(--muted); margin-bottom: 40px; line-height: 1.6; }
+.tag { display: inline-block; padding: 4px 14px; border-radius: 20px; font-size: 13px; font-weight: 700; margin-right: 8px; margin-bottom: 6px; }
+.tag-red { background: #fef2f2; color: var(--red); border: 1px solid #fecaca; }
+.tag-green { background: #ecfdf5; color: var(--green); border: 1px solid #a7f3d0; }
+.tag-blue { background: #eff6ff; color: var(--blue); border: 1px solid #bfdbfe; }
+.tag-yellow { background: #fffbeb; color: var(--yellow); border: 1px solid #fde68a; }
+.tag-navy { background: #e8eef6; color: var(--accent); border: 1px solid #b0c4de; }
+
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.grid3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.grid4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+
+.card {
+  background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+  padding: 24px; transition: transform 0.2s;
+}
+.card:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.card-label { font-size: 13px; color: var(--muted); margin-bottom: 6px; letter-spacing: 1px; }
+.card-value { font-size: 36px; font-weight: 900; color: #111; }
+.card-value.sm { font-size: 28px; }
+.card-sub { font-size: 14px; color: var(--muted); margin-top: 4px; }
+.card-accent { border-left: 3px solid var(--accent); }
+.card-green { border-left: 3px solid var(--green); }
+.card-red { border-left: 3px solid var(--red); }
+
+table { width: 100%; border-collapse: collapse; margin: 16px 0; }
+th { text-align: left; padding: 12px 16px; font-size: 13px; color: var(--muted); border-bottom: 2px solid var(--border); letter-spacing: 1px; font-weight: 600; }
+td { padding: 12px 16px; border-bottom: 1px solid var(--border); font-size: 15px; }
+tr:hover { background: rgba(0,0,0,0.015); }
+.td-green { color: var(--green); font-weight: 700; }
+.td-red { color: var(--red); font-weight: 700; }
+.td-blue { color: var(--blue); font-weight: 700; }
+.td-bold { font-weight: 700; }
+
+.pillar-bar { display: flex; gap: 4px; margin: 4px 0; }
+.star { width: 20px; height: 20px; border-radius: 4px; }
+.star-on { background: var(--accent); }
+.star-off { background: #e5e7eb; }
+
+.quote-box {
+  background: #e8eef6; border-left: 4px solid var(--accent);
+  padding: 20px 24px; border-radius: 0 12px 12px 0; margin: 20px 0;
+  font-size: 18px; font-weight: 600; line-height: 1.6; color: #111;
+}
+.quote-box.red { background: #fef2f2; border-left-color: var(--red); }
+.quote-box.green { background: #ecfdf5; border-left-color: var(--green); }
+.quote-box.blue { background: #eff6ff; border-left-color: var(--blue); }
+
+.scenario-row { display: grid; grid-template-columns: 100px 1fr 120px 100px 80px; align-items: center; padding: 16px 20px; border-radius: 12px; margin-bottom: 8px; }
+.scenario-bull { background: #ecfdf5; border: 1px solid #a7f3d0; }
+.scenario-base { background: #eff6ff; border: 1px solid #bfdbfe; }
+.scenario-bear { background: #fef2f2; border: 1px solid #fecaca; }
+
+.risk-bar { height: 8px; border-radius: 4px; background: #e5e7eb; margin: 6px 0; overflow: hidden; }
+.risk-fill { height: 100%; border-radius: 4px; }
+
+.hold-signal { background: #fffbeb; border: 2px solid var(--yellow); border-radius: 20px; padding: 32px; text-align: center; margin: 24px 0; }
+.hold-signal h2 { color: var(--yellow); margin-bottom: 12px; }
+
+.footer-note { font-size: 12px; color: var(--muted); text-align: center; padding: 40px; border-top: 1px solid var(--border); }
+
+@media (max-width: 768px) {
+  .slide { padding: 40px 20px; }
+  h1 { font-size: 32px; }
+  h2 { font-size: 24px; }
+  .grid2, .grid3, .grid4 { grid-template-columns: 1fr; }
+  .scenario-row { grid-template-columns: 1fr; gap: 8px; }
+  .card-value { font-size: 28px; }
+}
+</style>
+</head>
+<body>
+
+<!-- SLIDE 1: COVER -->
+<div class="slide" style="align-items: center; text-align: center; padding-top: 60px; padding-bottom: 60px;">
+  <div class="slide-num">Investment Analysis</div>
+  <h1 style="font-size: 56px;">KSS해운<br><span class="acc">5-Pillar 투자분석</span></h1>
+  <p class="sub" style="max-width: 640px;">044450.KS | 2026.05.16 기준<br>2026.1Q 분기보고서 + 신규 VLGC 3척 발주 + 장기대선계약 3건 + 호르무즈 봉쇄 반영</p>
+  <div>
+    <span class="tag tag-navy">11,240원</span>
+    <span class="tag tag-yellow">HOLD</span>
+    <span class="tag tag-blue">17/25점</span>
+    <span class="tag tag-red">비대칭 1.5:1 (미달)</span>
+  </div>
+</div>
+
+<!-- SLIDE 2: SNAPSHOT -->
+<div class="slide">
+  <div class="slide-num">01 — Snapshot</div>
+  <h2>투자 <span class="acc">한눈에 보기</span></h2>
+  <div class="grid4">
+    <div class="card card-accent"><div class="card-label">현재가</div><div class="card-value sm">11,240</div><div class="card-sub">52주 최고 10,260 / 최저 7,740</div></div>
+    <div class="card card-green"><div class="card-label">목표가 (Base)</div><div class="card-value sm">13,500</div><div class="card-sub">+20.1% 상승여력</div></div>
+    <div class="card"><div class="card-label">비대칭비율</div><div class="card-value sm" style="color:var(--red)">1.5:1</div><div class="card-sub">기준 2.5:1 미달 ❌</div></div>
+    <div class="card"><div class="card-label">5-Pillar</div><div class="card-value sm">17/25</div><div class="card-sub">밸류에이션 2점이 핵심 감점</div></div>
+  </div>
+  <div style="height: 24px;"></div>
+  <div class="grid4">
+    <div class="card"><div class="card-label">PER (2024 보고)</div><div class="card-value sm" style="color:var(--green)">4.0x</div><div class="card-sub">⚠️ 환율 왜곡 포함</div></div>
+    <div class="card"><div class="card-label">정규화 PER</div><div class="card-value sm" style="color:var(--red)">~16x</div><div class="card-sub">일회성·비현금 제거 후</div></div>
+    <div class="card"><div class="card-label">EV/EBIT</div><div class="card-value sm">14.2x</div><div class="card-sub">순차입금 1.23조 반영</div></div>
+    <div class="card"><div class="card-label">ICR (이자보상배율)</div><div class="card-value sm" style="color:var(--red)">1.26x</div><div class="card-sub">⚠️ 위험 수준</div></div>
+  </div>
+</div>
+
+<!-- SLIDE 3: PER DISTORTION -->
+<div class="slide">
+  <div class="slide-num">02 — PER의 진실</div>
+  <h2>PER <span class="red">4배</span>는 <span class="red">착시</span>다</h2>
+  <p class="sub">2026.1Q 분기보고서를 해부하면, 보고 순이익 635억의 실체가 드러난다.</p>
+  <div class="grid2">
+    <div>
+      <h3>2026.1Q 순이익 635억원의 구성</h3>
+      <table>
+        <tr><th>항목</th><th>금액</th><th>성격</th></tr>
+        <tr><td>영업이익</td><td>216억</td><td>본업 (YoY -27%)</td></tr>
+        <tr><td>이자비용(순)</td><td class="td-red">-169억</td><td>매분기 반복 ⚡</td></tr>
+        <tr><td class="td-bold">선박처분이익</td><td class="td-green">+462억</td><td class="td-red">일회성 ⚠️</td></tr>
+        <tr><td class="td-bold">외화환산이익(순)</td><td class="td-green">+128억</td><td class="td-red">비현금 ⚠️</td></tr>
+        <tr><td>기타</td><td>+3억</td><td>—</td></tr>
+        <tr style="background:#f0f2f5;"><td class="td-bold">세전이익</td><td class="td-bold">640억</td><td></td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>일회성 제거 후 정규화</h3>
+      <table>
+        <tr><th>항목</th><th>분기</th><th>연환산</th></tr>
+        <tr><td>영업이익</td><td>216억</td><td>864억</td></tr>
+        <tr><td>이자비용</td><td class="td-red">-172억</td><td class="td-red">-688억</td></tr>
+        <tr><td>정규화 세전이익</td><td>~50억</td><td>~200억</td></tr>
+        <tr><td>세후(20%)</td><td>~40억</td><td class="td-bold">~160억</td></tr>
+        <tr style="background:#fef2f2;"><td class="td-bold">정규화 PER</td><td colspan="2" class="td-red" style="font-size:24px;">~16배</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="quote-box red">영업이익 1,050억을 벌어도, 이자(688억)를 내면 주주 몫은 160억. 시총 2,595억 대비 정규화 PER ~16배. "PER 4배 극저평가"는 환율·선박처분 착시.</div>
+</div>
+
+<!-- SLIDE 4: BALANCE SHEET -->
+<div class="slide">
+  <div class="slide-num">03 — 재무구조</div>
+  <h2>레버리지의 <span class="red">실체</span></h2>
+  <div class="grid3">
+    <div class="card card-red"><div class="card-label">총 이자부부채</div><div class="card-value sm" style="color:var(--red)">1.36조</div><div class="card-sub">장기차입 8,828억 + 유동 4,769억</div></div>
+    <div class="card"><div class="card-label">순차입금</div><div class="card-value sm">1.23조</div><div class="card-sub">현금 1,266억 차감</div></div>
+    <div class="card"><div class="card-label">자본총계</div><div class="card-value sm">6,297억</div><div class="card-sub">부채비율 ~236%</div></div>
+  </div>
+  <div style="height:20px;"></div>
+  <div class="grid2">
+    <div class="card" style="text-align:center;"><div class="card-label">EV (시총+순차입금)</div><div class="card-value" style="color:var(--accent)">1.49조</div><div class="card-sub">시총 2,595억은 빙산의 일각</div></div>
+    <div class="card" style="text-align:center;"><div class="card-label">EV / 영업이익 (2024)</div><div class="card-value">14.2x</div><div class="card-sub">PER 4배와는 완전히 다른 그림</div></div>
+  </div>
+  <div class="quote-box">핵심: 시가총액만 보면 저평가 같지만, 1.23조의 순차입금을 더하면 기업가치(EV)는 1.49조. 영업이익 1,054억 대비 EV/EBIT 14.2배는 "적정" 수준이지 "저평가"가 아니다.</div>
+</div>
+
+<!-- SLIDE 5: 5-PILLAR -->
+<div class="slide">
+  <div class="slide-num">04 — 5-Pillar 평가</div>
+  <h2>5대 축 <span class="acc">종합 평가</span></h2>
+  <table>
+    <tr>
+      <th>Pillar</th><th>점수</th><th>평가</th><th>핵심 근거</th>
+    </tr>
+    <tr>
+      <td class="td-bold">① 하방 제한</td>
+      <td><div class="pillar-bar"><div class="star star-on"></div><div class="star star-on"></div><div class="star star-on"></div><div class="star star-on"></div><div class="star star-off"></div></div></td>
+      <td class="td-green">4/5</td>
+      <td>장기계약 기반, 28년 연속 배당, 신규 7년 대선계약 3건</td>
+    </tr>
+    <tr>
+      <td class="td-bold">② 상방 카탈리스트</td>
+      <td><div class="pillar-bar"><div class="star star-on"></div><div class="star star-on"></div><div class="star star-on"></div><div class="star star-on"></div><div class="star star-off"></div></div></td>
+      <td class="td-green">4/5</td>
+      <td>VLGC 3척 신조(5,048억) + 연 1,100억 매출 확보(2029~)</td>
+    </tr>
+    <tr>
+      <td class="td-bold">③ 해자</td>
+      <td><div class="pillar-bar"><div class="star star-on"></div><div class="star star-on"></div><div class="star star-on"></div><div class="star star-on"></div><div class="star star-off"></div></div></td>
+      <td class="td-green">4/5</td>
+      <td>국내 유일 암모니아 선사, 50년 노하우, 평균 선령 5년</td>
+    </tr>
+    <tr>
+      <td class="td-bold">④ 대리인 리스크</td>
+      <td><div class="pillar-bar"><div class="star star-on"></div><div class="star star-on"></div><div class="star star-on"></div><div class="star star-off"></div><div class="star star-off"></div></div></td>
+      <td class="td-blue">3/5</td>
+      <td>종업원지주제(21%), 28년 연속 배당. 다만 배당성향 15%, 외국인 5.5%로 외부 감시 약함</td>
+    </tr>
+    <tr>
+      <td class="td-bold">⑤ 밸류에이션</td>
+      <td><div class="pillar-bar"><div class="star star-on"></div><div class="star star-on"></div><div class="star star-off"></div><div class="star star-off"></div><div class="star star-off"></div></div></td>
+      <td class="td-red">2/5</td>
+      <td>정규화 PER ~16배, EV/EBIT 14배, 현 주가에 기대 반영</td>
+    </tr>
+    <tr style="background:#f0f2f5;">
+      <td class="td-bold" style="font-size:18px;">종합</td>
+      <td colspan="2"><strong style="font-size:24px; color:var(--accent);">17/25</strong></td>
+      <td class="td-bold">HOLD — 비대칭비율 미달</td>
+    </tr>
+  </table>
+</div>
+
+<!-- SLIDE 6: CONTRACT STRUCTURE -->
+<div class="slide">
+  <div class="slide-num">05 — 계약 구조 해부</div>
+  <h2>운송계약 vs 대선계약 — <span class="acc">비용 귀속</span>이 핵심</h2>
+  <p class="sub">같은 매출이라도, 계약 유형에 따라 KSS해운이 부담하는 비용이 완전히 다르다.</p>
+  <div class="grid2">
+    <div class="card card-red">
+      <h3 style="color:var(--red);">운송계약 (Voyage/COA)</h3>
+      <p style="font-size:14px; color:var(--muted); margin-bottom:12px;">예: SK GAS — 2,186억/7년, 연 312억</p>
+      <table>
+        <tr><td>선원비</td><td class="td-red">KSS 부담</td></tr>
+        <tr><td>보험/수리</td><td class="td-red">KSS 부담</td></tr>
+        <tr><td><strong>연료비</strong></td><td class="td-red"><strong>KSS 부담 ⚠️</strong></td></tr>
+        <tr><td><strong>항비</strong></td><td class="td-red"><strong>KSS 부담 ⚠️</strong></td></tr>
+      </table>
+      <p style="font-size:13px; margin-top:8px;">→ 호르무즈 우회 시 항비·연료비 급증 = 마진 직격</p>
+    </div>
+    <div class="card card-green">
+      <h3 style="color:var(--green);">대선계약 (Time Charter Out)</h3>
+      <p style="font-size:14px; color:var(--muted); margin-bottom:12px;">예: PETREDEC — 526억/3년, 월 선불</p>
+      <table>
+        <tr><td>선원비</td><td class="td-red">KSS 부담</td></tr>
+        <tr><td>보험/수리</td><td class="td-red">KSS 부담</td></tr>
+        <tr><td><strong>연료비</strong></td><td class="td-green"><strong>용선주 부담 ✅</strong></td></tr>
+        <tr><td><strong>항비</strong></td><td class="td-green"><strong>용선주 부담 ✅</strong></td></tr>
+      </table>
+      <p style="font-size:13px; margin-top:8px;">→ 항로 변경 무관, 안정적 대선료 수취</p>
+    </div>
+  </div>
+  <div class="quote-box green">신규 VLGC 3척(2029년 인도)은 전부 대선계약(TC-Out)으로 배정. 연료비·항비 리스크 없이 연 1,100억 매출 확보. 사업 구조가 "운송→대선" 중심으로 전환 중.</div>
+</div>
+
+<!-- SLIDE 7: COST EXPLOSION -->
+<div class="slide">
+  <div class="slide-num">06 — 비용 분석</div>
+  <h2>1Q 영업이익 <span class="red">-27%</span>의 원인</h2>
+  <p class="sub">매출은 +1.6% 늘었는데, 영업이익은 297억→216억으로 급감. 비용의 성격별 분류에서 원인이 드러난다.</p>
+  <table>
+    <tr><th>비용 항목</th><th>2026.1Q</th><th>2025.1Q</th><th>변동</th><th>변동률</th></tr>
+    <tr><td class="td-bold">비용 합계</td><td class="td-bold">1,182억</td><td>1,079억</td><td class="td-red">+103억</td><td>+9.5%</td></tr>
+    <tr style="background:#fef2f2;"><td class="td-bold">항비</td><td class="td-bold">219억</td><td>143억</td><td class="td-red">+76억</td><td class="td-red">+53.8%</td></tr>
+    <tr style="background:#fef2f2;"><td class="td-bold">선박경비</td><td class="td-bold">113억</td><td>82억</td><td class="td-red">+31억</td><td class="td-red">+38.4%</td></tr>
+    <tr><td>급여</td><td>166억</td><td>148억</td><td class="td-red">+18억</td><td>+12.3%</td></tr>
+    <tr><td>감가상각비</td><td>284억</td><td>289억</td><td class="td-green">-5억</td><td>-1.5%</td></tr>
+    <tr style="background:#ecfdf5;"><td>연료비용</td><td>297억</td><td>335억</td><td class="td-green">-38억</td><td class="td-green">-11.2%</td></tr>
+  </table>
+  <div class="quote-box red">비용 증가 103억 중, 항비(+76억)와 선박경비(+31억)가 107억 = 사실상 전부. 호르무즈 봉쇄 → 우회 항로 → 기항 횟수 증가 + 운하 통항료 → 운송계약 선박에서 집중 발생. 장기계약이라 운임은 고정인데 비용만 올라가는 구조적 미스매치.</div>
+</div>
+
+<!-- SLIDE 8: HORMUZ RISK -->
+<div class="slide">
+  <div class="slide-num">07 — 호르무즈 리스크</div>
+  <h2>호르무즈 해협 <span class="red">봉쇄</span> — 실시간 위험</h2>
+  <div class="grid2">
+    <div class="card card-red">
+      <h3 style="color:var(--red);">한국 선박 26척 억류</h3>
+      <p style="font-size:15px; line-height:1.7;">2026년 3월 이란-미국 전쟁 → 호르무즈 해협 봉쇄. 한국 국적 선박 26척(VLCC, LPG선, LNG선 포함)이 해협 안쪽에 억류. <strong>하루 21억원 손실</strong> 발생 중. 전쟁보험료 폭등 + 유가 급등이 추가 부담.</p>
+    </div>
+    <div class="card">
+      <h3>KSS해운 영향 추정</h3>
+      <p style="font-size:15px; line-height:1.7;">KSS해운의 중동 LPG 화주: PETREDEC, BGN(UAE), KALTIM 등. 중동→아시아 LPG 항로는 호르무즈 필수 통과. 추정 <strong>4~7척이 중동 항로</strong>, 이 중 <strong>1~3척 억류/대기</strong> 가능. 나머지는 미국 항로로 전환 중.</p>
+    </div>
+  </div>
+  <div style="height:16px;"></div>
+  <div class="card">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+      <strong>KSS해운의 구조적 방어력</strong>
+      <span class="tag tag-green">Old Panamax 7척</span>
+    </div>
+    <p style="font-size:15px; line-height:1.7;">KSS해운 VLGC 중 7척은 Old Panamax급으로 구 파나마 운하 통항 가능. 호르무즈 우회 시 미국산 LPG를 파나마 경유로 운송하는 대안 항로 전환이 가능하다. 또한 대선계약(TC-Out) 선박은 항로 변경에 따른 비용이 용선주 부담이므로 KSS 실적에 영향이 제한적.</p>
+  </div>
+</div>
+
+<!-- SLIDE 9: NEW CONTRACTS -->
+<div class="slide">
+  <div class="slide-num">08 — 신규 계약</div>
+  <h2>2029년을 위한 <span class="acc">레버리지 베팅</span></h2>
+  <div class="card" style="margin-bottom:16px; padding:28px;">
+    <h3 style="color:var(--accent); margin-bottom:16px;">VLGC 3척 신조 — 5,048억원 (자기자본의 93%)</h3>
+    <p style="font-size:15px; line-height:1.7; margin-bottom:16px;">90,000CBM OLD PANAMAX LPG D/F VLGC 3척을 HD현대중공업에 발주. 신·구 파나마 운하 모두 통항 가능, LPG 이중추진 엔진 탑재 친환경 선박. 인도 시기: 2029년 8월까지.</p>
+    <div class="grid3">
+      <div style="text-align:center;"><div class="card-label">투자금액</div><div style="font-size:24px; font-weight:900;">5,048억</div></div>
+      <div style="text-align:center;"><div class="card-label">자기자본대비</div><div style="font-size:24px; font-weight:900; color:var(--red);">92.74%</div></div>
+      <div style="text-align:center;"><div class="card-label">인도</div><div style="font-size:24px; font-weight:900;">~2029.08</div></div>
+    </div>
+  </div>
+  <h3>장기대선계약 3건 — 연간 1,104억 매출 확보</h3>
+  <table>
+    <tr><th>계약상대</th><th>금액</th><th>기간</th><th>연간 환산</th><th>일일 대선료</th></tr>
+    <tr><td class="td-bold">B INT'L SHIPPING</td><td>2,571억</td><td>2029.02~2036.02 (7년)</td><td>367억</td><td class="td-green">~$68,100/일</td></tr>
+    <tr><td class="td-bold">B INT'L SHIPPING</td><td>2,571억</td><td>2029.08~2036.08 (7년)</td><td>367억</td><td class="td-green">~$68,100/일</td></tr>
+    <tr><td class="td-bold">GYXIS CORP</td><td>1,852억</td><td>2029.05~2034.05 (5년)</td><td>370억</td><td class="td-green">~$68,700/일</td></tr>
+    <tr style="background:#ecfdf5;"><td class="td-bold">합계</td><td class="td-bold">6,994억</td><td></td><td class="td-bold">1,104억</td><td></td></tr>
+  </table>
+  <div class="quote-box green">현재 매출(5,614억) 대비 +20% 추가 확보. 대선료 $68,000/일은 기존 PETREDEC 대선($34,200/일)의 2배. 연료비·항비 리스크 없는 순수 TC 구조. 단, 2026~2028년은 추가 차입금 이자를 본업 수익으로 버텨야 하는 구간.</div>
+</div>
+
+<!-- SLIDE 10: SCENARIOS -->
+<div class="slide">
+  <div class="slide-num">09 — 시나리오 분석</div>
+  <h2>시나리오별 <span class="acc">적정가격</span> (11,240원 기준)</h2>
+  <div class="scenario-row scenario-bull">
+    <div style="font-weight:800; color:var(--green);">Bull</div>
+    <div style="font-size:14px;">암모니아 시장 2027 개화 + 대선 전환 가속 + 호르무즈 정상화 + 주주환원 확대</div>
+    <div style="font-weight:800; font-size:20px;">18,000원</div>
+    <div style="color:var(--green); font-weight:700;">+60.1%</div>
+    <div style="color:var(--muted);">20%</div>
+  </div>
+  <div class="scenario-row scenario-base">
+    <div style="font-weight:800; color:var(--blue);">Base</div>
+    <div style="font-size:14px;">현 실적 유지 + 2029년 선박 인도 기대감 반영 + PBR 0.6배 회복</div>
+    <div style="font-weight:800; font-size:20px;">13,500원</div>
+    <div style="color:var(--blue); font-weight:700;">+20.1%</div>
+    <div style="color:var(--muted);">50%</div>
+  </div>
+  <div class="scenario-row scenario-bear">
+    <div style="font-weight:800; color:var(--red);">Bear</div>
+    <div style="font-size:14px;">VLGC 운임 급락 + 호르무즈 장기 봉쇄 + 이자부담 가중 + 암모니아 지연</div>
+    <div style="font-weight:800; font-size:20px;">8,000원</div>
+    <div style="color:var(--red); font-weight:700;">-28.8%</div>
+    <div style="color:var(--muted);">30%</div>
+  </div>
+  <div style="height: 24px;"></div>
+  <div class="grid3">
+    <div class="card" style="text-align:center;"><div class="card-label">확률가중 적정가</div><div class="card-value" style="color:var(--blue);">12,950</div><div class="card-sub">+15.2%</div></div>
+    <div class="card" style="text-align:center;"><div class="card-label">비대칭 보상비율</div><div class="card-value" style="color:var(--red);">0.70:1</div><div class="card-sub">기준 2.5:1 미달 ❌</div></div>
+    <div class="card" style="text-align:center;"><div class="card-label">산출 방식</div><div class="card-value sm">Base/Bear</div><div class="card-sub">20.1% ÷ 28.8% = 0.70</div></div>
+  </div>
+</div>
+
+<!-- SLIDE 11: STRATEGY -->
+<div class="slide">
+  <div class="slide-num">10 — 매매 전략</div>
+  <h2>매수 / 매도 <span class="acc">전략</span></h2>
+  <div class="hold-signal">
+    <h2>투자의견: HOLD (관망)</h2>
+    <p style="font-size:18px; color:var(--text);">11,240원 | 비대칭비율 미달 | 적극 매수 시점은 8,000~9,000원대 조정 시</p>
+  </div>
+  <div class="grid2">
+    <div>
+      <h3>매수 전략</h3>
+      <table>
+        <tr><th>단계</th><th>가격</th><th>전략</th></tr>
+        <tr><td class="td-green">적극 매수</td><td>7,500~8,500원</td><td>PBR 0.35배 이하, 배당 5.5%+</td></tr>
+        <tr><td>분할 매수</td><td>8,500~10,000원</td><td>배당 4.5~5% 구간</td></tr>
+        <tr><td class="td-blue">관망</td><td>10,000~12,000원</td><td>현재 가격대, 기대 반영</td></tr>
+      </table>
+    </div>
+    <div>
+      <h3>매도 전략</h3>
+      <table>
+        <tr><th>단계</th><th>가격</th><th>비중</th></tr>
+        <tr><td class="td-blue">1차 익절</td><td>13,000~14,000원</td><td>50%</td></tr>
+        <tr><td>2차 익절</td><td>16,000원+</td><td>잔여 전량</td></tr>
+        <tr><td class="td-red">손절</td><td>7,000원 이하</td><td>전량</td></tr>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- SLIDE 12: CONCLUSION -->
+<div class="slide" style="text-align: center; padding-top: 60px; padding-bottom: 60px;">
+  <div class="slide-num">11 — Conclusion</div>
+  <h1 style="font-size: 40px; margin-bottom: 32px;">
+    본질은 <span class="acc">2029년을 위한<br>레버리지 베팅</span>
+  </h1>
+  <div class="grid3" style="max-width: 800px; margin: 0 auto;">
+    <div class="card" style="text-align:center;"><div class="card-label">현재가</div><div class="card-value sm" style="color:var(--accent)">11,240</div></div>
+    <div class="card" style="text-align:center;"><div class="card-label">목표가 (Base)</div><div class="card-value sm" style="color:var(--blue)">13,500</div></div>
+    <div class="card" style="text-align:center;"><div class="card-label">비대칭비율</div><div class="card-value sm" style="color:var(--red)">미달</div></div>
+  </div>
+  <p style="margin-top: 32px; font-size: 16px; color: var(--muted); max-width: 700px; margin-left: auto; margin-right: auto; line-height: 1.8;">
+    PER 4배는 환율·선박처분이익이 만든 착시. 정규화하면 PER 16배, EV/EBIT 14배.<br>
+    영업이익의 65%가 이자로 빠져나가는 구조에서 주주 귀속 현금은 극히 제한적.<br>
+    2029년 VLGC 3척 인도 + 대선계약 연 1,100억이 레버리지 효과를 만들어낼 잠재력이 있으나,<br>
+    지금~2028년은 이자를 내며 버티는 구간. 호르무즈 봉쇄가 추가 비용 압박.<br><br>
+    <strong>핵심 모니터링:</strong> 호르무즈 정상화 시점 / 암모니아 시장 개화 / 주주환원 정책 전환<br>
+    <strong>적극 매수 조건:</strong> 8,000~9,000원대 조정 시 진입 또는 암모니아 구체적 계약 체결 시
+  </p>
+</div>
+
+<div class="footer-note">
+  본 자료는 투자 스터디 목적으로 작성되었으며, 특정 금융상품의 매수/매도를 권유하지 않습니다.<br>
+  투자 판단과 그에 따른 손실은 전적으로 투자자 본인에게 귀속됩니다.<br>
+  데이터 출처: DART 분기보고서(2026.05.15), FnGuide, 하나증권 리포트, 공시 | 2026.05.16
+</div>
+
+</body>
+</html>
